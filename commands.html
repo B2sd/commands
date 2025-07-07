@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Команды Kxrvinho</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #1c1c1e;
+            --tertiary-bg: #2c2c2e;
+            --quaternary-bg: #3a3a3c;
+            --accent-color: #d4843d;
+            --accent-hover: #e6954d;
+            --text-primary: #ffffff;
+            --text-secondary: #ebebf5;
+            --text-tertiary: #ebebf599;
+            --border-color: #38383a;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.25);
+            --shadow-heavy: rgba(0, 0, 0, 0.5);
+            --blur-bg: rgba(28, 28, 30, 0.8);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, #d4843d, #ff6b35, #e6954d, #d4843d, #ff6b35, #e6954d);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .search-wrapper {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 24px 20px 56px;
+            font-size: 17px;
+            font-weight: 400;
+            background: var(--blur-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 4px 20px var(--shadow-light);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(212, 132, 61, 0.1), 0 8px 40px var(--shadow-medium);
+            transform: translateY(-2px);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 30px;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .category-btn {
+            padding: 12px 24px;
+            background: var(--blur-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 2px 10px var(--shadow-light);
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px var(--shadow-medium);
+        }
+
+        .category-btn.active {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .commands-container {
+            background: var(--blur-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 60px var(--shadow-medium);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            margin-bottom: 40px;
+        }
+
+        .commands-header {
+            background: linear-gradient(135deg, var(--accent-color) 0%, #e6954d 100%);
+            padding: 24px 32px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 32px;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #000;
+        }
+
+        .command-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 32px;
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-row:last-child {
+            border-bottom: none;
+        }
+
+        .command-row:hover {
+            background: var(--tertiary-bg);
+            transform: translateX(4px);
+        }
+
+        .command-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-color);
+            transform: scaleY(0);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .command-row:hover::before {
+            transform: scaleY(1);
+        }
+
+        .command-name {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-tertiary);
+            padding: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0;
+            transform: translateX(-10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .command-row:hover .copy-btn {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+        }
+
+        .copy-icon {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .command-response {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .command-response a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .command-response a:hover {
+            color: var(--accent-hover);
+        }
+
+        .command-response a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: currentColor;
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+
+        .command-response a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 80px 32px;
+            color: var(--text-tertiary);
+            font-size: 17px;
+        }
+
+        .toast {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: var(--blur-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: var(--text-primary);
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 8px 40px var(--shadow-medium);
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        /* Moderator Button */
+        .mod-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--blur-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 4px 20px var(--shadow-light);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mod-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px var(--shadow-medium);
+        }
+
+        /* Moderator Guide Styles */
+        .mod-guide {
+            display: none;
+            padding: 40px 20px;
+        }
+
+        .mod-guide.active {
+            display: block;
+        }
+
+        .mod-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .mod-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, #d4843d, #ff6b35, #e6954d);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background: var(--blur-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 2px 10px var(--shadow-light);
+            margin-bottom: 30px;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .mod-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .mod-category-card {
+            background: var(--blur-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 8px 40px var(--shadow-light);
+            text-align: center;
+        }
+
+        .mod-category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 60px var(--shadow-medium);
+            border-color: var(--accent-color);
+        }
+
+        .mod-category-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 16px;
+        }
+
+        .mod-category-card p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .mod-content {
+            display: none;
+        }
+
+        .mod-content.active {
+            display: block;
+        }
+
+        .mod-section {
+            background: var(--blur-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 40px var(--shadow-light);
+        }
+
+        .mod-section h3 {
+            color: var(--accent-color);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mod-section h4 {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0 12px 0;
+        }
+
+        .mod-section p, .mod-section li {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .mod-section ul {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .mod-section code {
+            background: var(--tertiary-bg);
+            color: var(--accent-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 24px 0;
+        }
+
+        .commands-table {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .commands-table-header {
+            background: var(--tertiary-bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .commands-table-cell {
+            background: var(--quaternary-bg);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .header {
+                margin-bottom: 30px;
+            }
+
+            .categories {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .category-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .commands-header,
+            .command-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                padding: 16px 20px;
+            }
+
+            .commands-header {
+                text-align: center;
+            }
+
+            .command-name {
+                justify-content: flex-start;
+            }
+
+            .search-input {
+                padding: 16px 20px 16px 48px;
+                font-size: 16px;
+            }
+
+            .search-icon {
+                left: 16px;
+                width: 18px;
+                height: 18px;
+            }
+
+            .mod-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .mod-btn {
+                top: 16px;
+                left: 16px;
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+
+            .commands-table {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .title {
+                animation: none;
+                background: linear-gradient(45deg, var(--accent-color) 0%, #ff6b35 100%);
+            }
+            
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Moderator Button -->
+    <button class="mod-btn" onclick="showModGuide()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H19C20.11 23 21 22.11 21 21V9M19 21H5V3H13V9H19Z"/>
+        </svg>
+        Модераторам
+    </button>
+
+    <!-- Main Commands Page -->
+    <div id="mainPage" class="container">
+        <header class="header">
+            <h1 class="title">Команды Kxrvinho</h1>
+        </header>
+
+        <div class="search-container">
+            <div class="search-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.39zM11 18a7 7 0 1 1 7-7 7 7 0 0 1-7 7z"/>
+                </svg>
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="commandSearch" 
+                    placeholder="Поиск команды... (например, !sens, !discord)"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+            </div>
+        </div>
+
+        <div class="categories">
+            <button class="category-btn active" data-category="all">Все</button>
+            <button class="category-btn" data-category="fortnite">Fortnite</button>
+            <button class="category-btn" data-category="setup">Setup</button>
+            <button class="category-btn" data-category="socials">Socials</button>
+        </div>
+
+        <div class="commands-container">
+            <div class="commands-header">
+                <div>Команда</div>
+                <div>Ответ</div>
+            </div>
+            <div class="commands-list" id="commandsList">
+                <!-- Commands will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Moderator Guide Page -->
+    <div id="modPage" class="container mod-guide">
+        <div class="mod-header">
+            <button class="back-btn" onclick="showMainPage()">← Назад к командам</button>
+            <h1 class="mod-title">Гайд для модераторов</h1>
+        </div>
+
+        <!-- Category Selection -->
+        <div id="modCategories" class="mod-categories">
+            <div class="mod-category-card" onclick="showModContent('spam')">
+                <h3>Спам</h3>
+                <p>Команды для спама и автоматического управления смайл модом</p>
+            </div>
+            <div class="mod-category-card" onclick="showModContent('bets')">
+                <h3>Ставки</h3>
+                <p>Создание и управление ставками на стриме</p>
+            </div>
+            <div class="mod-category-card" onclick="showModContent('commands')">
+                <h3>Команды</h3>
+                <p>Добавление, редактирование и удаление кастомных команд</p>
+            </div>
+        </div>
+
+        <!-- Spam Content -->
+        <div id="spamContent" class="mod-content">
+            <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
+            <div class="mod-section">
+    <h3>Команды для спама</h3>
+    <p>Чтобы увидеть все кастомные команды и команды для спама, пропишите <code>!команды1</code></p>
+    
+    <h4>Спам с анонсом и без:</h4>
+    <p><code>!карта</code> (реклама) <code>!крейзипвп</code> (реклама) <code>!аук</code> <code>!код</code> <code>!музыка</code> <code>!сигматг</code> <code>!соц</code> <code>!тг</code> <code>!дс</code> <code>!игруля</code></p>
+    
+    <h4>Спам без анонса:</h4>
+    <p><code>!крейзи</code> (код) <code>!сигма</code> (код)</p>
+    
+    <p>Например: <code>!карта5</code> (проспамит команду 5 раз обычным текстом) ИЛИ <code>!карта5а</code> (проспамит команду 5 раз с помощью анонса)</p>
+    
+    <h4>Команда !спам</h4>
+    <p>Команда <code>!спам</code> может отправлять обычный текст, обычные команды (в самом конфиге) и кастомные (т.е созданные в самом чате, кастомные команды указаны в <code>!команды1</code>)</p>
+    
+    <p>Чтобы проспамить с анонсом - используйте команду <code>!спама</code></p>
+    
+    <p>Например:</p>
+    <ul>
+        <li><code>!спам Привет 10</code> - спамит "Привет" 10 раз</li>
+        <li><code>!спама !музыка 5</code> - спамит содержимое команды музыки 5 раз с помощью анонса</li>
+    </ul>
+    
+    <h4>Важно:</h4>
+    <p><strong>ЕСЛИ ВЫ ИСПОЛЬЗУЕТЕ ОБЫЧНЫЙ СПАМ ОТ 8 ДО 10 ИЛИ СПАМ АНОНСОМ ОТ 3 ДО 5</strong>, то автоматически вкл./выкл. смайл мод. Команды работают только во время стрима.</p>
+</div>
+        </div>
+
+        <!-- Bets Content -->
+        <div id="betsContent" class="mod-content">
+            <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
+            
+            <div class="mod-section">
+                <h3>Список команд для создания ставки</h3>
+                <p><code>!ставка</code> (рандомная ставка из списка ниже)</p>
+                
+                <ul>
+                    <li>Займет ли топ 1? 🥇 <code>!ставкатоп1</code></li>
+                    <li>Займет ли топ 5? 🤼‍♂️ <code>!ставкатоп5</code></li>
+                    <li>Займет ли топ 10? 🤼‍♂️ <code>!ставкатоп10</code></li>
+                    <li>Займет ли топ 15? 🤼‍♂️ <code>!ставкатоп15</code></li>
+                    <li>Займет ли топ 20? 🤼‍♂️ <code>!ставкатоп20</code></li>
+                    <li>Займет ли топ 25? 🤼‍♂️ <code>!ставкатоп25</code></li>
+                    <li>Займет ли топ 50? 🤼‍♂️ <code>!ставкатоп50</code></li>
+                    <li>Сделает 1 килл? 🗡️ <code>!ставка1килл</code></li>
+                    <li>Сделает 2 килла? 🗡️ <code>!ставка2килла</code></li>
+                    <li>Сделает 3 килла? 🗡️ <code>!ставка3килла</code></li>
+                    <li>Сделает 4 килла? 🗡️ <code>!ставка4килла</code></li>
+                    <li>Сделает 5 киллов? 🗡️ <code>!ставка5киллов</code></li>
+                    <li>Сделает 6 киллов? 🗡️ <code>!ставка6киллов</code></li>
+                    <li>Сделает 7 киллов? 🗡️ <code>!ставка7киллов</code></li>
+                    <li>Сделает 8 киллов? 🗡️ <code>!ставка8киллов</code></li>
+                    <li>Сделает 9 киллов? 🗡️ <code>!ставка9киллов</code></li>
+                    <li>Сделает 10 киллов? 🗡️ <code>!ставка10киллов</code></li>
+                    <li>Миник с первого сундука? 🧪 <code>!ставкаминик</code></li>
+                    <li>Бига с первого сундука? 🍺 <code>!ставкабига</code></li>
+                    <li>Аптечка с первого сундука? 🧰 <code>!ставкааптечка</code></li>
+                    <li>Найдет легендарное оружие? 🔫 <code>!ставкалега</code></li>
+                    <li>Умрет ли от зоны? 🌩 <code>!ставказона</code></li>
+                    <li>Умрет от хедшота? 💀 <code>!ставкахедшот</code></li>
+                    <li>Умрет от стримснайпера? 🐵 <code>!ставкастримснайп</code></li>
+                    <li>Умрет от падения? 🪂 <code>!ставкападение</code></li>
+                    <li>Умрет от транспорта? (любого вида) 🛴 <code>!ставкатранспорт</code></li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="mod-section">
+                <h3>Reload ставки</h3>
+                <p><code>!релоад</code> (рандомная ставка из списка ниже)</p>
+                
+                <ul>
+                    <li>Займет ли топ 1? 🥇 <code>!ставкатоп1р</code></li>
+                    <li>Сделает 10 киллов? ⚔️ <code>!ставка10килловр</code></li>
+                    <li>Сделает 11 киллов? ⚔️ <code>!ставка11киллов</code></li>
+                    <li>Сделает 12 киллов? ⚔️ <code>!ставка12киллов</code></li>
+                    <li>Сделает 13 киллов? ⚔️ <code>!ставка13киллов</code></li>
+                    <li>Сделает 14 киллов? ⚔️ <code>!ставка14киллов</code></li>
+                    <li>Сделает 15 киллов? ⚔️ <code>!ставка15киллов</code></li>
+                    <li>Сделает 16 киллов? ⚔️ <code>!ставка16киллов</code></li>
+                    <li>Сделает 17 киллов? ⚔️ <code>!ставка17киллов</code></li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="mod-section">
+                <h3>1v1s ставки</h3>
+                <p><code>!1v1s</code> (рандомная ставка из списка ниже)</p>
+                
+                <ul>
+                    <li>Победит ли всухую? <code>!ставкасухая</code></li>
+                    <li>Выиграет ли подписчика? <code>!ставкапобеда</code></li>
+                    <li>Попадется со стримснайпером из ранкеда? 🐵 <code>!ставкастримснайпер</code></li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="mod-section">
+                <h3>Дополнительное создание ставок</h3>
+                
+                <h4>Длительность</h4>
+                <p><code>duration60</code> или <code>duration 60</code> (Любое целое число между 30 до 1800 секунд)</p>
+                <p>Например: <code>!prediction duration 60 / Да / Нет</code></p>
+
+                <h4>Название ставки</h4>
+                <p>Например: <code>!prediction title За сколько попыток он победит босса? / 1/2/3/4/5/6/7/8/9/10</code></p>
+
+                <h4>Комбинированный пример</h4>
+                <p>Например: как с продолжительностью, так и с названием</p>
+                <p><code>!prediction duration 30 / title Остановит ли он босса? / Да / Нет</code></p>
+
+                <h4>Настройки</h4>
+                <p>Требуемые аргументы - это настройки для ставок, разделенные /</p>
+                <p>Например: <code>!prediction Red / Blue / Yellow</code> Это будет использовать продолжительность и заголовок по умолчанию.</p>
+
+                <h4>Отмена, закрытие и решение ставки</h4>
+                <ul>
+                    <li><code>!prediction cancel</code> - Отменит ставку</li>
+                    <li><code>!prediction lock</code> - Закроет ставку, чтобы никто больше не мог ставить баллы</li>
+                    <li><code>!prediction resolve &lt;option&gt;</code> Решит ставку с предоставленным &lt;option&gt; в качестве победителя</li>
+                </ul>
+                <p>Например: <code>!prediction resolve Blue</code></p>
+            </div>
+        </div>
+
+        <!-- Commands Content -->
+        <div id="commandsContent" class="mod-content">
+            <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
+            
+            <div class="mod-section">
+                <h3>Управление командами</h3>
+                <p>Добавление, редактирование и удаление команд, а также создание/удаление псевдонимов и периодов ожидания для существующих команд можно выполнять с помощью следующих команд:</p>
+                <ul>
+                    <li><code>!cmd</code> - Рекомендуется использовать</li>
+                    <li><code>!commands</code></li>
+                    <li><code>!command</code></li>
+                </ul>
+
+                <h4>Добавление / переименование / редактирование / удаление команд или псевдонимов:</h4>
+                <p><code>!cmd &lt;функция&gt; &lt;команда&gt; &lt;ответ&gt;</code></p>
+                <p><strong>Команду, которую хотим создать, пишем без !</strong></p>
+                <p>Например: <code>!cmd create dpi 800</code></p>
+
+                <div class="commands-table">
+                    <div class="commands-table-header">Функции</div>
+                    <div class="commands-table-header">Описание</div>
+                    
+                    <div class="commands-table-cell"><code>add</code><br><code>create</code></div>
+                    <div class="commands-table-cell">создать новую кастомную команду</div>
+                    
+                    <div class="commands-table-cell"><code>rename</code></div>
+                    <div class="commands-table-cell">переименовать существующую кастомную команду или псевдоним</div>
+                    
+                    <div class="commands-table-cell"><code>edit</code><br><code>modify</code></div>
+                    <div class="commands-table-cell">отредактировать ответ на существующую кастомную команду</div>
+                    
+                    <div class="commands-table-cell"><code>del</code><br><code>delete</code><br><code>rem</code><br><code>remove</code></div>
+                    <div class="commands-table-cell">удалить существующую кастомную команду или псевдоним</div>
+                    
+                    <div class="commands-table-cell"><code>alias</code><br><code>nick</code><br><code>nickname</code></div>
+                    <div class="commands-table-cell">добавить псевдоним к существующей кастомной команде ИЛИ просмотреть список псевдонимов для неё</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        ✓ Команда скопирована в буфер обмена
+    </div>
+
+    <script>
+        const rawCommands = `!tracker - "https://fortnitetracker.com/profile/all/kxrvinho.gg33"
+!н - "HyperX Cloud 2"
+!чиназес - "Санчизес"
+!тг - "https://t.me/kxrvinhoGG33"
+!ник - "Карвиньо"
+!ранг - "КМС ПО ЛОББИ"
+!52 - "писят два 🖐✌"
+!вебка - "canon prosto 480L"
+!даблмувмент - "75 90 135 https://clips.twitch.tv/SpikyTriangularPartridgeBuddhaBar-U4QvEiWnogsb0H_q"
+!микрофон - "От наушников (HyperX Cloud 2)"
+!девайсы - "Steel Series Apex Pro, Finalmouse ultralightx Guardian Lion, HyperX Cloud 2, XTRFY GP4"
+!streamsniping - "Streamsniping every game i can funktioniren any more, i am taking pills cuz iam mentally lil after playing fortnite ranked with this player I cant stream FN properly and concanrate anymore PLease take actions against this player because hi is aimbotting and wallhacking aswell"
+!хогман - "Хогмана мы в жопу ебали и тудаже мы кончали Хогмана мы в жопу ебали и тудаже мы кончали Хогмана мы в жопу ебали и тудаже мы кончали DinoDance DinoDance DinoDance DinoDance DinoDance DinoDance DinoDance DinoDance"
+!ruins - "he RUINS MY CHRISTMAS FORTNITE GAMEPLAY. HE IS CHEATING: AIMBOT+WALLHACK+ RADARHACK+ MY FORTNITE CHARACTER + BULLING AT SCHOOL + USING SWEAR WORDS + LIFE IS A RACE - I AM A RACER"
+!mousepad - "XTRFY GP4"
+!w - "W😈"
+!тт - "https://www.tiktok.com/@kxrvinho28"
+!яркость - "100%"
+!ds - "https://discord.gg/eUuvyvDVy6"
+!bestfriend - "Tetris_qq"
+!s - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!бинды - "https://clips.twitch.tv/OddCourageousBurritoPeteZaroll-QuFSUvPTnXlsHeQE"
+!бисейд - "Временно вне бытия"
+!мактрахер - "ЛЕГЕНДА"
+!д - "https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate"
+!еда - "Во вкладке Работяги -> Еда 🍔 https://discord.gg/kxrvinho-1181217671908438117"
+!sigma - "1602-5676-9780"
+!sense - "x: 8.0 / y: 8.0 / 30% ads (800 dpi)"
+!rank - "Величайший"
+!report2 - "ЭЪ ЭЪ ЭЭЪ ЭЭЪ ЭЪ ЪЭ ЪЭ ЭЪ ЭЪ ЭЪ ЭЭЪ ЭЭЪ ЭЪ ЪЭ ЪЭ ЭЪ"
+!code - "GG33 in the item shop #ad"
+!сигма - "1602-5676-9780"
+!tiktok - "https://www.tiktok.com/@kxrvinho28"
+!name - "Vladimir"
+!edit - "edit on release on (bind F, edit)"
+!линк - "пиво"
+!питомцы - "Во вкладке Работяги -> Питомцы🐶 https://discord.gg/eUuvyvDVy6"
+!donate - "https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate"
+!сэтингс - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!сын - "фермера"
+!цветокор - "Протанопия 3"
+!resolution - "1920x1080"
+!ьщгыу - "mouse! → Finalmouse ultralightx Guardian Lion"
+!лох - "цветочный сиськастый"
+!ыуеештпы - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!спотифай - "https://open.spotify.com/user/98c989tklfakvmp7qnsy2w5nb"
+!discord - "https://discord.gg/eUuvyvDVy6"
+!setup - "!keyboard !mouse !mousepad !headphones"
+!зелибоба - "о великий зелибоба без тебя нам будет плохо 😞"
+!headset - "HyperX Cloud 2"
+!суперкарта - "⚡️ All Guns Superpowers FFA : 0852-9606-7878 ⚡️"
+!ют - "https://www.youtube.com/@kxrvinhofn"
+!клава - "Steel Series Apex Pro"
+!ситингс - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!sensitivity - "x: 8.0 / y: 8.0 / 30% ads (800 dpi)"
+!supermap - "Новая карта для фана – Crazy PVP! Бери любое оружие, суперсилы, гоняй на чем хочешь и мочи всех! Код: 0852-9606-7878"
+!doublemovement - "75 90 135 https://clips.twitch.tv/SpikyTriangularPartridgeBuddhaBar-U4QvEiWnogsb0H_q"
+!sens - "x: 8.0 / y: 8.0 / 30% ads (800 dpi)"
+!solo - "Ukrlan"
+!colorblind - "off 3"
+!tg - "https://t.me/kxrvinhoGG33"
+!shorts - "https://www.youtube.com/@kxrvinhofn"
+!киряче - "кавархино"
+!дельт - "Cursed Hazeboard"
+!задержка - "2 месяца"
+!res - "1920x1080"
+!трекер - "https://fortnitetracker.com/profile/all/kxrvinho.gg33"
+!кейборд - "Steel Series Apex Pro"
+!микро - "От наушников (HyperX Cloud 2)"
+!путрик - "чушпан"
+!squad - "freemok grolzz mtz kxrvinho"
+!лицо - "https://t.me/kxrvinhoGG33"
+!hz - "240hz"
+!крейзи - "0852-9606-7878"
+!супер - "Новая карта для фана – Crazy PVP! Бери любое оружие, суперсилы, гоняй на чем хочешь и мочи всех! Код: 0852-9606-7878"
+!мышь - "Finalmouse ultralightx Guardian Lion"
+!воодя - "гагагага"
+!movement - "75 90 135 https://clips.twitch.tv/SpikyTriangularPartridgeBuddhaBar-U4QvEiWnogsb0H_q"
+!вес - "чуть меньше веса слона"
+!pcboost - "От Missout"
+!onlyfans - "https://t.me/kxrvinhoGG33"
+!phone - "POCO SUPER GG33"
+!dpi - "800"
+!сетапы - "Во вкладке Работяги -> Сетапы 💻 https://discord.gg/eUuvyvDVy6"
+!карта - "1602-5676-9780"
+!какащке - "бугагащке"
+!delay - "0sex"
+!сигматг - "Чтобы сыграть на стриме нужно - Поставить лайк на карте SIGMА 1v1 (1602-5676-9780) + добавить в FAVORITE , скинуть ОДИН скрин в тг, под последний пост и написать свой ник - https://t.me/kxrvinhoGG33"
+!никнейм - "валя карнавал"
+!заказатьтрек - "Заказать свою музыку на стрим – 155₽ - https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate"
+!x - "https://twitter.com/28kxrvinho"
+!live - "Kiev ili Kyiv"
+!прога - "пошел нахуй"
+!setting - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!pc - "i7-12700kf rtx 3070ti MSI PRO z690-a ddr4 ssd 980 samsung 500gb"
+!дс - "https://discord.gg/eUuvyvDVy6"
+!youtube - "https://www.youtube.com/@kxrvinhofn"
+!трио - "FRENEMY9, blagodarter"
+!editonrelease - "on"
+!ам - "амаммамам"
+!micro - "От наушников (HyperX Cloud 2)"
+!хомяк - "https://t.me/kxrvinhoGG33"
+!обертка - "Bubbly"
+!френеми - "зайка🐰"
+!naushniki - "HyperX Cloud 2"
+!earnings - "пару раз похавать"
+!maus - "mouse! → Finalmouse ultralightx Guardian Lion"
+!1в1 - "1602-5676-9780"
+!правила - "ПРАВИЛА АУКА НА ФИЛЬМ: 1. Перед тем как задонатить на просмотр фильма, убедитесь ,что его можно смотреть на платформе TWITCH, если нет смотрим на КICK. 2. Во время аукциона на фильм, донаты не относящиеся к аукциону не будут учитываться и вписываться в таблицу. 3. Сериалы на аукционе просматриваться не будут. 4. Перед донатом спрашивать, смотрели ли ваш фильм уже."
+!писи - "i7-12700kf rtx 3070ti MSI PRO z690-a ddr4 ssd 980 samsung 500gb"
+!best - "Tetris"
+!microphone - "От наушников (HyperX Cloud 2)"
+!nayshnikinaangliyskom - "HyperX Cloud 2"
+!тозакатта - "Школьник📖"
+!дпи - "800"
+!settings - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!playlist - "https://open.spotify.com/playlist/5L9RmnsYoL8L3ErNr5zQrZ?si=e3b9104791cf4c33 / https://vk.com/music?z=audio_playlist384656841_83889939/90e725b9a047edd1dc / https://music.yandex.ru/users/Yeatsbigtonka/playlists/1002"
+!модеры - "без ставок невкусно и не чиназес как то"
+!володя - "скуф"
+!кейбоард - "Steel Series Apex Pro"
+!duo - "Elon Musk"
+!соцсети - "USE CODE GG33 IN FORTNITE SHOP / DS- https://discord.gg/eUuvyvDVy6 / TG- https://t.me/kxrvinhoGG33 / TT- https://www.tiktok.com/@kxrvinho28"
+!ах - "Лимонад 🥤 Аххх 🥵🥵🥵"
+!иванзоло - "мой друг"
+!пкбуст - "Миссаут"
+!сенса - "x: 8.0 / y: 8.0 / 30% ads (800 dpi)"
+!headphones - "HyperX Cloud 2"
+!дискорд - "https://discord.gg/eUuvyvDVy6"
+!city - "Kiev ili Kyiv"
+!музыка - "Заказать свою музыку на стрим – 155₽ - https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate"
+!к - "Steel Series Apex Pro"
+!м - "Finalmouse ultralightx Guardian Lion"
+!тикток - "https://www.tiktok.com/@kxrvinho28"
+!плейлист - "https://open.spotify.com/playlist/5L9RmnsYoL8L3ErNr5zQrZ?si=e3b9104791cf4c33 / https://vk.com/music?z=audio_playlist384656841_83889939/90e725b9a047edd1dc / https://music.yandex.ru/users/Yeatsbigtonka/playlists/1002"
+!монитор - "Acer Predator 240hz"
+!inst - "https://www.instagram.com/champagnepapi/"
+!порода - "бульбульдог"
+!наушникинаанглийском - "HyperX Cloud 2"
+!донат - "https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate"
+!yfcnhjqrb - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!трейд - "https://steamcommunity.com/tradeoffer/new/?partner=346043495&token=cpPiJxRi"
+!плэйлист - "https://open.spotify.com/playlist/5L9RmnsYoL8L3ErNr5zQrZ?si=e3b9104791cf4c33 / https://vk.com/music?z=audio_playlist384656841_83889939/90e725b9a047edd1dc / https://music.yandex.ru/users/Yeatsbigtonka/playlists/1002"
+!наушники - "HyperX Cloud 2"
+!буст - "от missout"
+!пк - "i7-12700kf rtx 3070ti MSI PRO z690-a ddr4 ssd 980 samsung 500gb"
+!имя - "Владимир"
+!чипак - "🐘"
+!мувмент - "75 90 135 https://clips.twitch.tv/SpikyTriangularPartridgeBuddhaBar-U4QvEiWnogsb0H_q"
+!леонид - "отец канала"
+!spotify - "https://open.spotify.com/user/98c989tklfakvmp7qnsy2w5nb"
+!клавиатура - "Steel Series Apex Pro"
+!admin - "yeban"
+!настройки - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!hud - "75%"
+!модерация - "ублюдки конченные"
+!devices - "Steel Series Apex Pro, Finalmouse ultralightx Guardian Lion, HyperX Cloud 2, XTRFY GP4"
+!twitter - "https://twitter.com/28kxrvinho"
+!пкастомки - "‼️Правила кастомок‼️ - Ходить за Володей нельзя, даже для того что бы дать хил/оружие/и.т.п - Файтиться нельзя до первого шторм сюрджа.После первого сюрджа, снова нельзя файтиться - Начинается второй сюрдж снова можно, файтиться, после окончания второго сюрджа - нельзя убивать и наносить урон друг другу. - Начало третего шторм сюрджа, можно файтиться, после его окончания файтиться можно до окончания игры."
+!графика - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!brightness - "100%"
+!report - "Hello dear administration I am Fortnite stereamer WOLODYA I am playing ranked and this player ruins my gameplay by streamsniping Please ban him, i can take my pills any more i become so anxoius about that I am not eating for a week because i am too nervous GRACIAS"
+!epicgames - "BAN HIS ASAP!!!! STREAMSNIPING ME FOR 1.5 YEARS.I HAVE ALREADY LOST ALL MY BRAINCELLS! PLEASE ERIC GAMES"
+!keyboard - "Steel Series Apex Pro"
+!уши - "HyperX Cloud 2"
+!ванвиван - "1602-5676-9780"
+!map - "1602-5676-9780"
+!yt - "https://www.youtube.com/@kxrvinhofn"
+!trio - "FRENEMY9 / blagodarter"
+!криптовалюта - "https://t.me/kxrvinhoGG33 парни создал тг канал где буду делиться с вами полезной инфой в мире крипты)"
+!туз - "кабан"
+!age - "64 (пожилой крокозябрик)"
+!стопка - "1100 р"
+!дипиай - "800"
+!лунищфкв - "Steel Series Apex Pro"
+!аук - "АУК НА ФИЛЬМ https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate"
+!випы - "состес"
+!ютуб - "https://www.youtube.com/@kxrvinhofn"
+!monitor - "Acer Predator 240hz"
+!рефка - "kxrvinho888"
+!fix - "Способы/причины: 1) !Возможно неполадки в самом фортнайте! 2) Перезайти в игру 3) Подтвердить адрес электронной почты 4) Включить двухфакторную аутентификацию 5) Нужно минимальное звание в Ранкеде для участия в турнире 6) Возможно турнир заблокирован в Вашем регионе 7) Поставить разрешение 16:9 8) Сменить в игре язык на Английский"
+!код - "КОД АВТОРА - GG33"
+!graphic - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
+!7tv - "Не хочешь быть обычным типом, который не видит крутые анимированные смайлы в чате? Тогда скачивай расширение и кайфуй! https://7tv.app/"
+!from - "Украина, Киев."
+!девушка - "китайская хохлатая"
+!мышка - "mouse! → Finalmouse ultralightx Guardian Lion"
+!тетрис - "хороший мужик"
+!1v1 - "1602-5676-9780"
+!mouse - "mouse! → Finalmouse ultralightx Guardian Lion"
+!мтз - "Величайший человек на канале Владимира Карвика"
+!mic - "От наушников (HyperX Cloud 2)"
+!рост - "чуть выше тумбочки"`;
+
+        // Category mappings
+        const categoryMappings = {
+            fortnite: ['!tracker', '!даблмувмент', '!яркость', '!s', '!бинды', '!sense', '!edit', '!цветокор', '!resolution', '!ыуеештпы', '!sigma', '!сигма', '!суперкарта', '!sensitivity', '!doublemovement', '!sens', '!colorblind', '!дельт', '!res', '!трекер', '!hz', '!крейзи', '!супер', '!movement', '!dpi', '!карта', '!editonrelease', '!1в1', '!дпи', '!сенса', '!мувмент', '!настройки', '!hud', '!brightness', '!ванвиван', '!map', '!дипиай', '!graphic', '!код', '!1v1'],
+            setup: ['!н', '!вебка', '!микрофон', '!девайсы', '!mousepad', '!ьщгыу', '!setup', '!headset', '!клава', '!кейборд', '!микро', '!мышь', '!pcboost', '!phone', '!pc', '!micro', '!naushniki', '!maus', '!писи', '!microphone', '!nayshnikinaangliyskom', '!кейбоард', '!headphones', '!к', '!м', '!монитор', '!наушникинаанглийском', '!наушники', '!пк', '!буст', '!devices', '!keyboard', '!уши', '!лунищфкв', '!monitor', '!мышка', '!mouse', '!mic'],
+            socials: ['!тт', '!тг', '!ds', '!д', '!tiktok', '!donate', '!спотифай', '!discord', '!ют', '!tg', '!shorts', '!лицо', '!onlyfans', '!заказатьтрек', '!x', '!дс', '!youtube', '!хомяк', '!playlist', '!соцсети', '!дискорд', '!музыка', '!тикток', '!плейлист', '!inst', '!донат', '!трейд', '!плэйлист', '!spotify', '!twitter', '!yt', '!криптовалюта', '!аук', '!ютуб', '!7tv']
+        };
+
+        class CommandsApp {
+            constructor() {
+                this.commands = [];
+                this.filteredCommands = [];
+                this.currentCategory = 'all';
+                this.init();
+            }
+
+            init() {
+                this.parseCommands();
+                this.renderCommands();
+                this.setupEventListeners();
+            }
+
+            parseCommands() {
+                const rows = rawCommands.trim().split('\n');
+                this.commands = rows.map(row => {
+                    const match = row.match(/^!(.*?)\s*-\s*"(.*?)"$/);
+                    if (match) {
+                        const command = '!' + match[1].trim();
+                        return {
+                            command: command,
+                            response: match[2].trim(),
+                            category: this.getCommandCategory(command)
+                        };
+                    }
+                    return null;
+                }).filter(Boolean);
+                
+                this.filteredCommands = [...this.commands];
+            }
+
+            getCommandCategory(command) {
+                for (const [category, commands] of Object.entries(categoryMappings)) {
+                    if (commands.includes(command)) {
+                        return category;
+                    }
+                }
+                return 'other';
+            }
+
+            makeLinksClickable(text) {
+                return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+            }
+
+            renderCommands() {
+                const container = document.getElementById('commandsList');
+                
+                if (this.filteredCommands.length === 0) {
+                    container.innerHTML = '<div class="no-results">Команды не найдены</div>';
+                    return;
+                }
+
+                container.innerHTML = this.filteredCommands.map(cmd => `
+                    <div class="command-row">
+                        <div class="command-name">
+                            <span>${cmd.command}</span>
+                            <button class="copy-btn" onclick="app.copyCommand('${cmd.command}')" title="Копировать команду">
+                                <svg class="copy-icon" viewBox="0 0 24 24">
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="command-response">${this.makeLinksClickable(cmd.response)}</div>
+                    </div>
+                `).join('');
+            }
+
+            filterByCategory(category) {
+                this.currentCategory = category;
+                
+                // Update category buttons
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-category="${category}"]`).classList.add('active');
+                
+                // Filter commands
+                if (category === 'all') {
+                    this.filteredCommands = [...this.commands];
+                } else {
+                    this.filteredCommands = this.commands.filter(cmd => cmd.category === category);
+                }
+                
+                // Apply search if there's a search term
+                const searchTerm = document.getElementById('commandSearch').value.toLowerCase();
+                if (searchTerm) {
+                    this.filterCommands(searchTerm);
+                } else {
+                    this.renderCommands();
+                }
+            }
+
+            filterCommands(searchTerm) {
+                const term = searchTerm.toLowerCase();
+                let baseCommands = this.currentCategory === 'all' ? this.commands : 
+                    this.commands.filter(cmd => cmd.category === this.currentCategory);
+                
+                this.filteredCommands = baseCommands.filter(cmd => 
+                    cmd.command.toLowerCase().includes(term) || 
+                    cmd.response.toLowerCase().includes(term)
+                );
+                this.renderCommands();
+            }
+
+            copyCommand(command) {
+                navigator.clipboard.writeText(command).then(() => {
+                    this.showToast();
+                }).catch(err => {
+                    console.error('Ошибка копирования:', err);
+                });
+            }
+
+            showToast() {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+            setupEventListeners() {
+                const searchInput = document.getElementById('commandSearch');
+                let debounceTimer;
+
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        this.filterCommands(e.target.value);
+                    }, 150);
+                });
+
+                // Category buttons
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.filterByCategory(btn.dataset.category);
+                    });
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                        e.preventDefault();
+                        searchInput.focus();
+                    }
+                    if (e.key === 'Escape') {
+                        searchInput.blur();
+                        searchInput.value = '';
+                        this.filterCommands('');
+                    }
+                });
+            }
+        }
+
+        // Navigation functions
+        function showModGuide() {
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('modPage').classList.add('active');
+            showModCategories();
+        }
+
+        function showMainPage() {
+            document.getElementById('modPage').classList.remove('active');
+            document.getElementById('mainPage').style.display = 'block';
+        }
+
+        function showModCategories() {
+            // Hide all content sections
+            document.querySelectorAll('.mod-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // Show categories
+            document.getElementById('modCategories').style.display = 'grid';
+        }
+
+        function showModContent(section) {
+            // Hide categories
+            document.getElementById('modCategories').style.display = 'none';
+            // Hide all content sections
+            document.querySelectorAll('.mod-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // Show selected content
+            document.getElementById(section + 'Content').classList.add('active');
+        }
+
+        // Initialize app
+        const app = new CommandsApp();
+    </script>
+</body>
+</html>
