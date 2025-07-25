@@ -1,1675 +1,1786 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Команды Kxrvinho</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-bg: #000000;
-            --secondary-bg: #1c1c1e;
-            --tertiary-bg: #2c2c2e;
-            --quaternary-bg: #3a3a3c;
-            --accent-color: #d4843d;
-            --accent-hover: #e6954d;
-            --text-primary: #ffffff;
-            --text-secondary: #ebebf5;
-            --text-tertiary: #ebebf599;
-            --border-color: #38383a;
-            --shadow-light: rgba(0, 0, 0, 0.1);
-            --shadow-medium: rgba(0, 0, 0, 0.25);
-            --shadow-heavy: rgba(0, 0, 0, 0.5);
-            --blur-bg: rgba(28, 28, 30, 0.8);
-            --glow-color: rgba(212, 132, 61, 0.3);
-            --mod-primary: #8b5cf6;
-            --mod-secondary: #a78bfa;
-            --mod-accent: #c4b5fd;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 75%, #1a1a1a 100%);
-            color: var(--text-primary);
-            min-height: 100vh;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            position: relative;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Киберпанк фон с анимированной сеткой */
-        .cyber-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .cyber-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(212, 132, 61, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(212, 132, 61, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Энергетические импульсы */
-        .energy-pulse {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(212, 132, 61, 0.6), transparent 70%);
-            animation: pulseExpand 4s ease-out infinite;
-        }
-
-        .pulse-1 {
-            top: 20%;
-            left: 60%;
-            width: 200px;
-            height: 200px;
-            animation-delay: 0s;
-        }
-
-        .pulse-2 {
-            bottom: 30%;
-            right: 30%;
-            width: 150px;
-            height: 150px;
-            animation-delay: -2s;
-        }
-
-        .pulse-3 {
-            top: 60%;
-            left: 20%;
-            width: 180px;
-            height: 180px;
-            animation-delay: -1s;
-        }
-
-        @keyframes pulseExpand {
-            0% {
-                transform: scale(0);
-                opacity: 0.8;
-            }
-            50% {
-                opacity: 0.4;
-            }
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        /* Анимированные частицы */
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            box-shadow: 0 0 6px var(--accent-color);
-            animation: particleFloat 6s linear infinite;
-        }
-
-        .particle:nth-child(odd) {
-            animation-delay: -3s;
-        }
-
-        @keyframes particleFloat {
-            0% {
-                transform: translateY(100vh) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        /* Неоновые линии */
-        .neon-line {
-            position: absolute;
-            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-            height: 1px;
-            animation: lineMove 8s ease-in-out infinite;
-        }
-
-        .line-1 {
-            top: 25%;
-            left: 0;
-            width: 100%;
-            animation-delay: 0s;
-        }
-
-        .line-2 {
-            top: 75%;
-            left: 0;
-            width: 100%;
-            animation-delay: -4s;
-        }
-
-        .line-vertical {
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(180deg, transparent, var(--accent-color), transparent);
-            animation: lineVerticalMove 10s ease-in-out infinite;
-        }
-
-        .line-v1 {
-            left: 30%;
-            top: 0;
-            animation-delay: -2s;
-        }
-
-        .line-v2 {
-            right: 40%;
-            top: 0;
-            animation-delay: -6s;
-        }
-
-        @keyframes lineMove {
-            0%, 100% { opacity: 0; transform: translateX(-100%); }
-            50% { opacity: 0.6; transform: translateX(0); }
-        }
-
-        @keyframes lineVerticalMove {
-            0%, 100% { opacity: 0; transform: translateY(-100%); }
-            50% { opacity: 0.6; transform: translateY(0); }
-        }
-
-        /* Голографические глитчи */
-        .glitch-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(212, 132, 61, 0.03) 2px,
-                    rgba(212, 132, 61, 0.03) 4px
-                );
-            animation: glitchScan 3s linear infinite;
-        }
-
-        @keyframes glitchScan {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
-        }
-
-        /* Основные стили остаются без изменений */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            position: relative;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-            animation: fadeInUp 0.8s ease-out;
-            position: relative;
-        }
-
-        .title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--accent-color), #ff6b35, var(--accent-hover));
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-            animation: gradientShift 6s ease-in-out infinite;
-            position: relative;
-            text-shadow: 0 0 40px var(--glow-color);
-            margin-bottom: 20px;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: var(--accent-hover);
-            font-weight: 400;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .search-container {
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .search-wrapper {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 20px 24px 20px 56px;
-            font-size: 17px;
-            font-weight: 400;
-            background: linear-gradient(145deg, rgba(212, 132, 61, 0.08), rgba(0, 0, 0, 0.4));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 132, 61, 0.2);
-            border-radius: 24px;
-            color: var(--text-primary);
-            outline: none;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 
-                0 10px 40px rgba(212, 132, 61, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            position: relative;
-        }
-
-        .search-input:focus {
-            border-color: var(--accent-color);
-            box-shadow: 
-                0 0 0 4px rgba(212, 132, 61, 0.1), 
-                0 25px 80px rgba(212, 132, 61, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 0 2px rgba(212, 132, 61, 0.3);
-            transform: translateY(-3px) scale(1.02);
-        }
-
-        .search-input::placeholder {
-            color: var(--text-tertiary);
-            font-weight: 400;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            opacity: 0.6;
-            pointer-events: none;
-            transition: all 0.3s ease;
-            color: var(--accent-color);
-        }
-
-        .search-wrapper:focus-within .search-icon {
-            opacity: 1;
-            color: var(--accent-color);
-            animation: searchPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes searchPulse {
-            0%, 100% { transform: translateY(-50%) scale(1); }
-            50% { transform: translateY(-50%) scale(1.1); }
-        }
-
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease-out 0.3s both;
-        }
-
-        .category-btn {
-            padding: 16px 32px;
-            background: linear-gradient(145deg, rgba(212, 132, 61, 0.1), rgba(230, 149, 77, 0.05));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid transparent;
-            border-radius: 20px;
-            color: var(--text-secondary);
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 
-                0 10px 40px rgba(212, 132, 61, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .category-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 132, 61, 0.2), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .category-btn:hover::before {
-            left: 100%;
-        }
-
-        .category-btn:hover {
-            transform: translateY(-6px) scale(1.05);
-            box-shadow: 
-                0 25px 80px rgba(212, 132, 61, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 0 2px rgba(212, 132, 61, 0.3);
-            border-color: var(--accent-color);
-        }
-
-        .category-btn.active {
-            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
-            color: #000;
-            border-color: var(--accent-color);
-            font-weight: 700;
-            box-shadow: 
-                0 25px 80px rgba(212, 132, 61, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                0 0 0 2px rgba(212, 132, 61, 0.4);
-            animation: activeGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes activeGlow {
-            0% { text-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
-            100% { text-shadow: 0 0 20px rgba(0, 0, 0, 0.6); }
-        }
-
-        .commands-container {
-            background: linear-gradient(145deg, rgba(212, 132, 61, 0.08), rgba(0, 0, 0, 0.4));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 132, 61, 0.2);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 
-                0 10px 40px rgba(212, 132, 61, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-            margin-bottom: 40px;
-            position: relative;
-            /* ПЛАВНАЯ АНИМАЦИЯ ПРИ ПЕРЕКЛЮЧЕНИИ КАТЕГОРИЙ */
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .commands-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-color), var(--accent-hover), var(--accent-color));
-            background-size: 200% 100%;
-            animation: borderFlow 4s linear infinite;
-        }
-
-        @keyframes borderFlow {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        /* ГРАДИЕНТ В ЦВЕТАХ КОМАНД И ССЫЛОК */
-        .commands-header {
-            background: linear-gradient(
-                135deg, 
-                var(--accent-color) 0%,
-                #c8743a 15%,
-                #b8642f 30%,
-                var(--accent-hover) 45%,
-                #f0a55d 60%,
-                #d4843d 75%,
-                var(--accent-hover) 90%,
-                var(--accent-color) 100%
-            );
-            background-size: 300% 300%;
-            animation: elegantHeaderFlow 15s ease-in-out infinite;
-            padding: 24px 40px;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 32px;
-            font-weight: 700;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            color: #000;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 2px 10px rgba(212, 132, 61, 0.3);
-        }
-
-        @keyframes elegantHeaderFlow {
-            0% { 
-                background-position: 0% 50%; 
-                filter: brightness(1) saturate(1) hue-rotate(0deg);
-            }
-            25% { 
-                background-position: 50% 25%; 
-                filter: brightness(1.05) saturate(1.1) hue-rotate(5deg);
-            }
-            50% { 
-                background-position: 100% 50%; 
-                filter: brightness(1.1) saturate(1.2) hue-rotate(10deg);
-            }
-            75% { 
-                background-position: 50% 75%; 
-                filter: brightness(1.05) saturate(1.1) hue-rotate(5deg);
-            }
-            100% { 
-                background-position: 0% 50%; 
-                filter: brightness(1) saturate(1) hue-rotate(0deg);
-            }
-        }
-
-        .commands-header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-            animation: elegantHeaderShine 12s ease-in-out infinite;
-        }
-
-        @keyframes elegantHeaderShine {
-            0% { 
-                left: -100%; 
-                opacity: 0;
-            }
-            15% {
-                opacity: 0.3;
-            }
-            50% { 
-                left: 50%; 
-                opacity: 0.6;
-            }
-            85% {
-                opacity: 0.3;
-            }
-            100% { 
-                left: 100%; 
-                opacity: 0;
-            }
-        }
-
-        /* УЛУЧШЕННАЯ СИСТЕМА ПЛАВНОЙ ПРОКРУТКИ И ЗАГРУЗКИ */
-        .commands-list {
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform-origin: center top;
-        }
-
-        .command-row {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 32px;
-            padding: 20px 40px;
-            border-bottom: 1px solid rgba(212, 132, 61, 0.1);
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            will-change: transform, opacity;
-        }
-
-        .command-row.visible {
-            opacity: 1;
-            transform: translateY(0);
-            animation: smoothSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        @keyframes smoothSlideIn {
-            0% {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-            60% {
-                opacity: 0.8;
-                transform: translateY(-2px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .command-row:last-child {
-            border-bottom: none;
-        }
-
-        .command-row:hover {
-            background: linear-gradient(135deg, rgba(212, 132, 61, 0.1), rgba(230, 149, 77, 0.05));
-            transform: translateX(8px) scale(1.01);
-            box-shadow: 0 4px 20px rgba(212, 132, 61, 0.2);
-        }
-
-        .command-row::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(180deg, var(--accent-color), var(--accent-hover));
-            transform: scaleY(0);
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .command-row:hover::before {
-            transform: scaleY(1);
-            animation: borderPulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes borderPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .command-name {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--accent-color);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .command-row:hover .command-name {
-            color: var(--accent-hover);
-            text-shadow: 0 0 15px rgba(212, 132, 61, 0.4);
-        }
-
-        .copy-btn {
-            background: linear-gradient(135deg, rgba(212, 132, 61, 0.2), rgba(230, 149, 77, 0.1));
-            border: 1px solid rgba(212, 132, 61, 0.3);
-            color: var(--accent-color);
-            padding: 8px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 0;
-            transform: translateX(-10px) scale(0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-            font-weight: 600;
-        }
-
-        .copy-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: var(--accent-color);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            transform: translate(-50%, -50%);
-        }
-
-        .copy-btn:hover::before {
-            width: 100%;
-            height: 100%;
-        }
-
-        .command-row:hover .copy-btn {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-        }
-
-        .copy-btn:hover {
-            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
-            color: #000;
-            border-color: var(--accent-color);
-            transform: translateX(0) scale(1.1);
-            box-shadow: 0 0 15px rgba(212, 132, 61, 0.4);
-        }
-
-        .copy-icon {
-            width: 14px;
-            height: 14px;
-            fill: currentColor;
-            transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .command-response {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            word-wrap: break-word;
-            transition: all 0.3s ease;
-        }
-
-        .command-row:hover .command-response {
-            color: var(--text-primary);
-        }
-
-        .command-response a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .command-response a:hover {
-            color: var(--accent-hover);
-            text-shadow: 0 0 8px var(--glow-color);
-        }
-
-        .command-response a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .command-response a:hover::after {
-            transform: scaleX(1);
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 80px 32px;
-            color: var(--text-tertiary);
-            font-size: 17px;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .toast {
-            position: fixed;
-            top: 24px;
-            right: 24px;
-            background: linear-gradient(145deg, rgba(212, 132, 61, 0.1), rgba(0, 0, 0, 0.8));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            color: var(--text-primary);
-            padding: 16px 24px;
-            border-radius: 16px;
-            border: 1px solid rgba(212, 132, 61, 0.3);
-            box-shadow: 
-                0 10px 40px rgba(212, 132, 61, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transform: translateX(100%) scale(0.8);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 1000;
-            font-weight: 500;
-        }
-
-        .toast.show {
-            transform: translateX(0) scale(1);
-            animation: toastBounce 0.6s ease-out;
-        }
-
-        @keyframes toastBounce {
-            0% { transform: translateX(0) scale(1); }
-            50% { transform: translateX(-10px) scale(1.05); }
-            100% { transform: translateX(0) scale(1); }
-        }
-
-        /* КНОПКА МОДЕРАТОРОВ С РЫЦАРСКИМ МЕЧОМ */
-        .mod-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: linear-gradient(145deg, var(--mod-primary), var(--mod-secondary));
-            border: 2px solid transparent;
-            border-radius: 50%;
-            color: white;
-            padding: 12px;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 
-                0 8px 32px rgba(139, 92, 246, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 0 1px rgba(139, 92, 246, 0.1);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-            width: 48px;
-            height: 48px;
-        }
-
-        .mod-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .mod-btn:hover::before {
-            left: 100%;
-        }
-
-        .mod-btn:hover {
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 
-                0 12px 48px rgba(139, 92, 246, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                0 0 0 1px rgba(139, 92, 246, 0.2),
-                0 0 30px rgba(139, 92, 246, 0.3);
-            background: linear-gradient(145deg, var(--mod-secondary), var(--mod-accent));
-        }
-
-        .mod-btn:active {
-            transform: translateY(-1px) scale(1.05);
-        }
-
-        .mod-btn-icon {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
-        }
-
-        /* Новый дизайн гайда для модераторов */
-        .mod-guide {
-            display: none;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%);
-            min-height: 100vh;
-        }
-
-        .mod-guide.active {
-            display: block;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .mod-header {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .mod-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--mod-primary), var(--mod-secondary), var(--mod-accent));
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-            animation: gradientShift 6s ease-in-out infinite;
-            text-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
-        }
-
-        .mod-subtitle {
-            font-size: 18px;
-            color: var(--mod-accent);
-            font-weight: 400;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-
-        .back-btn {
-            background: linear-gradient(135deg, var(--tertiary-bg), var(--quaternary-bg));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--mod-primary);
-            border-radius: 25px;
-            color: var(--mod-accent);
-            padding: 12px 24px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .back-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .back-btn:hover::before {
-            left: 100%;
-        }
-
-        .back-btn:hover {
-            background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
-            color: white;
-            border-color: var(--mod-accent);
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
-        }
-
-        /* Новые карточки категорий */
-        .mod-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .mod-category-card {
-            background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(167, 139, 250, 0.05));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid transparent;
-            border-radius: 24px;
-            padding: 40px 30px;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 
-                0 10px 40px rgba(139, 92, 246, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            animation: cardFloat 8s ease-in-out infinite;
-        }
-
-        .mod-category-card:nth-child(2) {
-            animation-delay: -2.6s;
-        }
-
-        .mod-category-card:nth-child(3) {
-            animation-delay: -5.2s;
-        }
-
-        @keyframes cardFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .mod-category-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .mod-category-card:hover::before {
-            left: 100%;
-        }
-
-        .mod-category-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 
-                0 25px 80px rgba(139, 92, 246, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 0 2px rgba(139, 92, 246, 0.3);
-            border-color: var(--mod-primary);
-        }
-
-        .mod-category-card h3 {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--mod-primary);
-            margin-bottom: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .mod-category-card:hover h3 {
-            color: var(--mod-accent);
-            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-        }
-
-        .mod-category-card p {
-            color: var(--text-secondary);
-            font-size: 16px;
-            line-height: 1.6;
-            transition: all 0.3s ease;
-        }
-
-        .mod-category-card:hover p {
-            color: var(--text-primary);
-        }
-
-        /* Новый дизайн контента */
-        .mod-content {
-            display: none;
-        }
-
-        .mod-content.active {
-            display: block;
-            animation: slideInRight 0.6s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .mod-section {
-            background: linear-gradient(145deg, rgba(139, 92, 246, 0.08), rgba(0, 0, 0, 0.4));
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 24px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 
-                0 10px 40px rgba(139, 92, 246, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            animation: sectionSlide 0.6s ease-out;
-        }
-
-        @keyframes sectionSlide {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .mod-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--mod-primary), var(--mod-secondary), var(--mod-accent));
-            background-size: 200% 100%;
-            animation: borderFlow 4s linear infinite;
-        }
-
-        .mod-section h3 {
-            color: var(--mod-primary);
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid rgba(139, 92, 246, 0.2);
-            animation: textGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 10px rgba(139, 92, 246, 0.3); }
-            100% { text-shadow: 0 0 20px rgba(139, 92, 246, 0.6); }
-        }
-
-        .mod-section h4 {
-            color: var(--mod-accent);
-            font-size: 20px;
-            font-weight: 600;
-            margin: 24px 0 16px 0;
-        }
-
-        .mod-section p, .mod-section li {
-            color: var(--text-secondary);
-            font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 12px;
-        }
-
-        .mod-section ul {
-            padding-left: 24px;
-            margin-bottom: 20px;
-        }
-
-        .mod-section li {
-            margin-bottom: 10px;
-            position: relative;
-        }
-
-        .mod-section li::marker {
-            color: var(--mod-primary);
-        }
-
-        .mod-section code {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(167, 139, 250, 0.1));
-            color: var(--mod-accent);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-            font-size: 14px;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .mod-section code:hover {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(167, 139, 250, 0.2));
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
-            transform: scale(1.05);
-            border-color: var(--mod-primary);
-        }
-
-        .divider {
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--mod-primary), var(--mod-secondary), var(--mod-accent), transparent);
-            margin: 40px 0;
-            animation: dividerPulse 3s ease-in-out infinite;
-            border-radius: 2px;
-        }
-
-        @keyframes dividerPulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        .commands-table {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 16px;
-            margin: 24px 0;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
-        }
-
-        .commands-table-header {
-            background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
-            padding: 16px 20px;
-            font-weight: 700;
-            color: white;
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .commands-table-cell {
-            background: rgba(139, 92, 246, 0.05);
-            padding: 16px 20px;
-            color: var(--text-secondary);
-            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .commands-table-cell:hover {
-            background: rgba(139, 92, 246, 0.1);
-            color: var(--text-primary);
-            transform: scale(1.01);
-        }
-
-        .commands-table-cell:last-child,
-        .commands-table-cell:nth-last-child(2) {
-            border-bottom: none;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 12px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(167, 139, 250, 0.05));
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            color: var(--mod-accent);
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover {
-            background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
-        }
-
-        .filter-btn.active {
-            background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
-            color: white;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-        }
-
-        .command-list {
-            display: grid;
-            gap: 12px;
-            margin: 20px 0;
-        }
-
-        .command-item {
-            background: rgba(139, 92, 246, 0.05);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 12px;
-            padding: 16px 20px;
-            transition: all 0.3s ease;
-        }
-
-        .command-item:hover {
-            background: rgba(139, 92, 246, 0.1);
-            transform: translateX(4px);
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
-        }
-
-        .command-item code {
-            margin-right: 12px;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--secondary-bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--accent-color), var(--accent-hover));
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--accent-hover), var(--accent-color));
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 16px;
-            }
-
-            .header {
-                margin-bottom: 30px;
-            }
-
-            .categories {
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-
-            .category-btn {
-                padding: 12px 24px;
-                font-size: 14px;
-            }
-
-            .commands-header,
-            .command-row {
-                grid-template-columns: 1fr;
-                gap: 16px;
-                padding: 16px 20px;
-            }
-
-            .commands-header {
-                text-align: center;
-            }
-
-            .command-name {
-                justify-content: flex-start;
-            }
-
-            .search-input {
-                padding: 16px 20px 16px 48px;
-                font-size: 16px;
-            }
-
-            .search-icon {
-                left: 16px;
-                width: 18px;
-                height: 18px;
-            }
-
-            .mod-categories {
-                grid-template-columns: 1fr;
-            }
-
-            .mod-btn {
-                top: 16px;
-                left: 16px;
-                width: 44px;
-                height: 44px;
-                padding: 10px;
-            }
-
-            .mod-btn-icon {
-                width: 18px;
-                height: 18px;
-            }
-
-            .commands-table {
-                grid-template-columns: 1fr;
-            }
-
-            /* Скрыть фоновые эффекты на мобильных */
-            .cyber-background {
-                display: none;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            
-            .title {
-                animation: none;
-                background: linear-gradient(45deg, var(--accent-color) 0%, #ff6b35 100%);
-            }
-
-            .cyber-background {
-                display: none;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Команды Kxrvinho</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23d4843d;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%23ff6b35;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23e6954d;stop-opacity:1' /%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='3' result='coloredBlur'/%3E%3CfeMerge%3E%3CfeMergeNode in='coloredBlur'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Crect width='100' height='100' fill='%23000000' rx='20'/%3E%3Ctext x='50' y='70' font-family='system-ui, -apple-system, sans-serif' font-size='60' font-weight='800' text-anchor='middle' fill='url(%23grad)' filter='url(%23glow)'%3EK%3C/text%3E%3C/svg%3E">
+  <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      :root {
+          --primary-bg: #000000;
+          --secondary-bg: #1c1c1e;
+          --tertiary-bg: #2c2c2e;
+          --quaternary-bg: #3a3a3c;
+          --accent-color: #d4843d;
+          --accent-hover: #e6954d;
+          --text-primary: #ffffff;
+          --text-secondary: #ebebf5;
+          --text-tertiary: #ebebf599;
+          --border-color: #38383a;
+          --shadow-light: rgba(0, 0, 0, 0.1);
+          --shadow-medium: rgba(0, 0, 0, 0.25);
+          --shadow-heavy: rgba(0, 0, 0, 0.5);
+          --blur-bg: rgba(28, 28, 30, 0.8);
+          --glow-color: rgba(212, 132, 61, 0.3);
+          --mod-primary: #8b5cf6;
+          --mod-secondary: #a78bfa;
+          --mod-accent: #c4b5fd;
+      }
+
+      html {
+          scroll-behavior: smooth;
+      }
+
+      body {
+          font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+          background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d2d2d 75%, #1a1a1a 100%);
+          color: var(--text-primary);
+          min-height: 100vh;
+          line-height: 1.6;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          position: relative;
+          overflow-x: hidden;
+          /* REMOVED: overflow-y: auto; from body to control it via JS */
+          scroll-behavior: smooth;
+          -webkit-overflow-scrolling: touch;
+      }
+
+      .cyber-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          z-index: -1;
+          overflow: hidden;
+      }
+
+      .cyber-grid {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: 
+              linear-gradient(rgba(212, 132, 61, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(212, 132, 61, 0.1) 1px, transparent 1px);
+          background-size: 50px 50px;
+          animation: gridMove 20s linear infinite;
+      }
+
+      @keyframes gridMove {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(50px, 50px); }
+      }
+
+      /* Энергетические импульсы */
+      .energy-pulse {
+          position: absolute;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(212, 132, 61, 0.6), transparent 70%);
+          animation: pulseExpand 4s ease-out infinite;
+      }
+
+      .pulse-1 {
+          top: 20%;
+          left: 60%;
+          width: 200px;
+          height: 200px;
+          animation-delay: 0s;
+      }
+
+      .pulse-2 {
+          bottom: 30%;
+          right: 30%;
+          width: 150px;
+          height: 150px;
+          animation-delay: -2s;
+      }
+
+      .pulse-3 {
+          top: 60%;
+          left: 20%;
+          width: 180px;
+          height: 180px;
+          animation-delay: -1s;
+      }
+
+      @keyframes pulseExpand {
+          0% {
+              transform: scale(0);
+              opacity: 0.8;
+          }
+          50% {
+              opacity: 0.4;
+          }
+          100% {
+              transform: scale(2);
+              opacity: 0;
+          }
+      }
+
+      /* Анимированные частицы */
+      .particle {
+          position: absolute;
+          width: 3px;
+          height: 3px;
+          background: var(--accent-color);
+          border-radius: 50%;
+          box-shadow: 0 0 6px var(--accent-color);
+          animation: particleFloat 6s linear infinite;
+      }
+
+      .particle:nth-child(odd) {
+          animation-delay: -3s;
+      }
+
+      @keyframes particleFloat {
+          0% {
+              transform: translateY(100vh) translateX(0);
+              opacity: 0;
+          }
+          10% {
+              opacity: 1;
+          }
+          90% {
+              opacity: 1;
+          }
+          100% {
+              transform: translateY(-100px) translateX(100px);
+              opacity: 0;
+          }
+      }
+
+      /* Неоновые линии */
+      .neon-line {
+          position: absolute;
+          background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+          height: 1px;
+          animation: lineMove 8s ease-in-out infinite;
+      }
+
+      .line-1 {
+          top: 25%;
+          left: 0;
+          width: 100%;
+          animation-delay: 0s;
+      }
+
+      .line-2 {
+          top: 75%;
+          left: 0;
+          width: 100%;
+          animation-delay: -4s;
+      }
+
+      .line-vertical {
+          width: 1px;
+          height: 100%;
+          background: linear-gradient(180deg, transparent, var(--accent-color), transparent);
+          animation: lineVerticalMove 10s ease-in-out infinite;
+      }
+
+      .line-v1 {
+          left: 30%;
+          top: 0;
+          animation-delay: -2s;
+      }
+
+      .line-v2 {
+          right: 40%;
+          top: 0;
+          animation-delay: -6s;
+      }
+
+      @keyframes lineMove {
+          0%, 100% { opacity: 0; transform: translateX(-100%); }
+          50% { opacity: 0.6; transform: translateX(0); }
+      }
+
+      @keyframes lineVerticalMove {
+          0%, 100% { opacity: 0; transform: translateY(-100%); }
+          50% { opacity: 0.6; transform: translateY(0); }
+      }
+
+      /* Голографические глитчи */
+      .glitch-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: 
+              repeating-linear-gradient(
+                  0deg,
+                  transparent,
+                  transparent 2px,
+                  rgba(212, 132, 61, 0.03) 2px,
+                  rgba(212, 132, 61, 0.03) 4px
+              );
+          animation: glitchScan 3s linear infinite;
+      }
+
+      @keyframes glitchScan {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100vh); }
+      }
+
+      /* Основные стили остаются без изменений */
+      .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 40px 20px;
+          position: relative;
+      }
+
+      .header {
+          text-align: center;
+          margin-bottom: 50px;
+          animation: fadeInUp 0.8s ease-out;
+          position: relative;
+      }
+
+      .title {
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 800;
+          background: linear-gradient(45deg, var(--accent-color), #ff6b35, var(--accent-hover));
+          background-size: 200% 200%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          letter-spacing: -0.02em;
+          animation: gradientShift 6s ease-in-out infinite;
+          position: relative;
+          text-shadow: 0 0 40px var(--glow-color);
+          margin-bottom: 20px;
+      }
+
+      .subtitle {
+          font-size: 18px;
+          color: var(--accent-hover);
+          font-weight: 400;
+          opacity: 0.9;
+          margin-bottom: 30px;
+      }
+
+      @keyframes gradientShift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+      }
+
+      .search-container {
+          margin-bottom: 40px;
+          animation: fadeInUp 0.8s ease-out 0.2s both;
+      }
+
+      .search-wrapper {
+          position: relative;
+          max-width: 600px;
+          margin: 0 auto;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Add transition here */
+      }
+
+      .search-wrapper:focus-within {
+          transform: translateY(-3px) scale(1.02); /* Apply transform to wrapper */
+      }
+
+      .search-input {
+          width: 100%;
+          padding: 20px 24px 20px 56px;
+          font-size: 17px;
+          font-weight: 400;
+          background: linear-gradient(145deg, rgba(212, 132, 61, 0.08), rgba(0, 0, 0, 0.4));
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(212, 132, 61, 0.2);
+          border-radius: 24px;
+          color: var(--text-primary);
+          outline: none;
+          /* transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); */
+          box-shadow: 
+              0 10px 40px rgba(212, 132, 61, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          position: relative;
+      }
+
+      .search-input:focus {
+          border-color: var(--accent-color);
+          box-shadow: 
+              0 0 0 4px rgba(212, 132, 61, 0.1), 
+              0 25px 80px rgba(212, 132, 61, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1),
+              0 0 0 2px rgba(212, 132, 61, 0.3);
+        /* transform: translateY(-3px) scale(1.02); */
+      }
+
+      .search-input::placeholder {
+          color: var(--text-tertiary);
+          font-weight: 400;
+      }
+
+      .search-icon {
+          position: absolute;
+          left: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 20px;
+          height: 20px;
+          opacity: 0.6;
+          pointer-events: none;
+          transition: all 0.3s ease;
+          color: var(--accent-color);
+      }
+
+      .search-wrapper:focus-within .search-icon {
+          opacity: 1;
+          color: var(--accent-color);
+          animation: searchPulse 2s ease-in-out infinite;
+      }
+
+      @keyframes searchPulse {
+          0%, 100% { transform: translateY(-50%) scale(1); }
+          50% { transform: translateY(-50%) scale(1.1); }
+      }
+
+      .categories {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin-bottom: 40px;
+          animation: fadeInUp 0.8s ease-out 0.3s both;
+      }
+
+      .category-btn {
+          padding: 16px 32px;
+          background: linear-gradient(145deg, rgba(212, 132, 61, 0.1), rgba(230, 149, 77, 0.05));
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 2px solid transparent;
+          border-radius: 20px;
+          color: var(--text-secondary);
+          font-size: 15px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          box-shadow: 
+              0 10px 40px rgba(212, 132, 61, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          position: relative;
+          overflow: hidden;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+      }
+
+      .category-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(212, 132, 61, 0.2), transparent);
+          transition: left 0.8s ease;
+      }
+
+      .category-btn:hover::before {
+          left: 100%;
+      }
+
+      .category-btn:hover {
+          transform: translateY(-6px) scale(1.05);
+          box-shadow: 
+              0 25px 80px rgba(212, 132, 61, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2),
+              0 0 0 2px rgba(212, 132, 61, 0.3);
+          border-color: var(--accent-color);
+      }
+
+      .category-btn.active {
+          background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+          color: #000;
+          border-color: var(--accent-color);
+          font-weight: 700;
+          box-shadow: 
+              0 25px 80px rgba(212, 132, 61, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3),
+              0 0 0 2px rgba(212, 132, 61, 0.4);
+          animation: activeGlow 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes activeGlow {
+          0% { text-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+          100% { text-shadow: 0 0 20px rgba(0, 0, 0, 0.6); }
+      }
+
+      .commands-container {
+          background: linear-gradient(145deg, rgba(212, 132, 61, 0.08), rgba(0, 0, 0, 0.4));
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(212, 132, 61, 0.2);
+          border-radius: 24px;
+          overflow: hidden;
+          box-shadow: 
+              0 10px 40px rgba(212, 132, 61, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          animation: fadeInUp 0.8s ease-out 0.4s both;
+          margin-bottom: 40px;
+          position: relative;
+          /* ПЛАВНАЯ АНИМАЦИЯ ПРИ ПЕРЕКЛЮЧЕНИИ КАТЕГОРИЙ */
+          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .commands-container::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, var(--accent-color), var(--accent-hover), var(--accent-color));
+          background-size: 200% 100%;
+          animation: borderFlow 4s linear infinite;
+      }
+
+      @keyframes borderFlow {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+      }
+
+      /* ГРАДИЕНТ В ЦВЕТАХ КОМАНД И ССЫЛОК */
+      .commands-header {
+          background: linear-gradient(
+              135deg, 
+              var(--accent-color) 0%,
+              #c8743a 15%,
+              #b8642f 30%,
+              var(--accent-hover) 45%,
+              #f0a55d 60%,
+              #d4843d 75%,
+              var(--accent-hover) 90%,
+              var(--accent-color) 100%
+          );
+          background-size: 300% 300%;
+          animation: elegantHeaderFlow 15s ease-in-out infinite;
+          padding: 24px 40px;
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          gap: 32px;
+          font-weight: 700;
+          font-size: 15px;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          color: #000;
+          position: relative;
+          overflow: hidden;
+          box-shadow: 
+              inset 0 1px 0 rgba(255, 255, 255, 0.2),
+              0 2px 10px rgba(212, 132, 61, 0.3);
+      }
+
+      @keyframes elegantHeaderFlow {
+          0% { 
+              background-position: 0% 50%; 
+              filter: brightness(1) saturate(1) hue-rotate(0deg);
+          }
+          25% { 
+              background-position: 50% 25%; 
+              filter: brightness(1.05) saturate(1.1) hue-rotate(5deg);
+          }
+          50% { 
+              background-position: 100% 50%; 
+              filter: brightness(1.1) saturate(1.2) hue-rotate(10deg);
+          }
+          75% { 
+              background-position: 50% 75%; 
+              filter: brightness(1.05) saturate(1.1) hue-rotate(5deg);
+          }
+          100% { 
+              background-position: 0% 50%; 
+              filter: brightness(1) saturate(1) hue-rotate(0deg);
+          }
+      }
+
+      .commands-header::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+          animation: elegantHeaderShine 12s ease-in-out infinite;
+      }
+
+      @keyframes elegantHeaderShine {
+          0% { 
+              left: -100%; 
+              opacity: 0;
+          }
+          15% {
+              opacity: 0.3;
+          }
+          50% { 
+              left: 50%; 
+              opacity: 0.6;
+          }
+          85% {
+              opacity: 0.3;
+          }
+          100% { 
+              left: 100%; 
+              opacity: 0;
+          }
+      }
+
+      /* УЛУЧШЕННАЯ СИСТЕМА ПЛАВНОЙ ПРОКРУТКИ И ЗАГРУЗКИ */
+      .commands-list {
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transform-origin: center top;
+      }
+
+      .command-row {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          gap: 32px;
+          padding: 20px 40px;
+          border-bottom: 1px solid rgba(212, 132, 61, 0.1);
+          transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          position: relative;
+          overflow: hidden;
+          opacity: 0;
+          transform: translateY(20px);
+          will-change: transform, opacity;
+      }
+
+      .command-row.visible {
+          opacity: 1;
+          transform: translateY(0);
+          animation: smoothSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      @keyframes smoothSlideIn {
+          0% {
+              opacity: 0;
+              transform: translateY(25px);
+          }
+          60% {
+              opacity: 0.8;
+              transform: translateY(-2px);
+          }
+          100% {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      .command-row:last-child {
+          border-bottom: none;
+      }
+
+      .command-row:hover {
+          background: linear-gradient(135deg, rgba(212, 132, 61, 0.1), rgba(230, 149, 77, 0.05));
+          transform: translateX(8px) scale(1.01);
+          box-shadow: 0 4px 20px rgba(212, 132, 61, 0.2);
+      }
+
+      .command-row::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 4px;
+          background: linear-gradient(180deg, var(--accent-color), var(--accent-hover));
+          transform: scaleY(0);
+          transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .command-row:hover::before {
+          transform: scaleY(1);
+          animation: borderPulse 1.5s ease-in-out infinite;
+      }
+
+      @keyframes borderPulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+      }
+
+      .command-name {
+          font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+          font-size: 16px;
+          font-weight: 600;
+          color: var(--accent-color);
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          transition: all 0.3s ease;
+      }
+
+      .command-row:hover .command-name {
+          color: var(--accent-hover);
+          text-shadow: 0 0 15px rgba(212, 132, 61, 0.4);
+      }
+
+      .copy-btn {
+          background: linear-gradient(135deg, rgba(212, 132, 61, 0.2), rgba(230, 149, 77, 0.1));
+          border: 1px solid rgba(212, 132, 61, 0.3);
+          color: var(--accent-color);
+          padding: 8px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          opacity: 0;
+          transform: translateX(-10px) scale(0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          position: relative;
+          overflow: hidden;
+          font-weight: 600;
+      }
+
+      .copy-btn::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          background: var(--accent-color);
+          border-radius: 50%;
+          transition: all 0.3s ease;
+          transform: translate(-50%, -50%);
+      }
+
+      .copy-btn:hover::before {
+          width: 100%;
+          height: 100%;
+      }
+
+      .command-row:hover .copy-btn {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+      }
+
+      .copy-btn:hover {
+          background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+          color: #000;
+          border-color: var(--accent-color);
+          transform: translateX(0) scale(1.1);
+          box-shadow: 0 0 15px rgba(212, 132, 61, 0.4);
+      }
+
+      .copy-icon {
+          width: 14px;
+          height: 14px;
+          fill: currentColor;
+          transition: all 0.3s ease;
+          position: relative;
+          z-index: 1;
+      }
+
+      .command-response {
+          font-size: 15px;
+          color: var(--text-secondary);
+          line-height: 1.5;
+          word-wrap: break-word;
+          transition: all 0.3s ease;
+      }
+
+      .command-row:hover .command-response {
+          color: var(--text-primary);
+      }
+
+      .command-response a {
+          color: var(--accent-color);
+          text-decoration: none;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          position: relative;
+      }
+
+      .command-response a:hover {
+          color: var(--accent-hover);
+          text-shadow: 0 0 8px var(--glow-color);
+      }
+
+      .command-response a::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+          transform: scaleX(0);
+          transition: transform 0.3s ease;
+      }
+
+      .command-response a:hover::after {
+          transform: scaleX(1);
+      }
+
+      .no-results {
+          text-align: center;
+          padding: 80px 32px;
+          color: var(--text-tertiary);
+          font-size: 17px;
+          animation: fadeIn 0.5s ease-out;
+      }
+
+      @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+      }
+
+      .toast {
+          position: fixed;
+          top: 24px;
+          right: 24px;
+          background: linear-gradient(145deg, rgba(212, 132, 61, 0.1), rgba(0, 0, 0, 0.8));
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          color: var(--text-primary);
+          padding: 16px 24px;
+          border-radius: 16px;
+          border: 1px solid rgba(212, 132, 61, 0.3);
+          box-shadow: 
+              0 10px 40px rgba(212, 132, 61, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          transform: translateX(100%) scale(0.8);
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          z-index: 1000;
+          font-weight: 500;
+      }
+
+      .toast.show {
+          transform: translateX(0) scale(1);
+          animation: toastBounce 0.6s ease-out;
+      }
+
+      @keyframes toastBounce {
+          0% { transform: translateX(0) scale(1); }
+          50% { transform: translateX(-10px) scale(1.05); }
+          100% { transform: translateX(0) scale(1); }
+      }
+
+      /* КНОПКА МОДЕРАТОРОВ С РЫЦАРСКИМ МЕЧОМ */
+      .mod-btn {
+          position: fixed;
+          top: 20px;
+          left: 20px;
+          background: linear-gradient(145deg, var(--mod-primary), var(--mod-secondary));
+          border: 2px solid transparent;
+          border-radius: 50%;
+          color: white;
+          padding: 12px;
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          box-shadow: 
+              0 8px 32px rgba(139, 92, 246, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2),
+              0 0 0 1px rgba(139, 92, 246, 0.1);
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+          backdrop-filter: blur(10px);
+          width: 48px;
+          height: 48px;
+      }
+
+      .mod-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: left 0.8s ease;
+      }
+
+      .mod-btn:hover::before {
+          left: 100%;
+      }
+
+      .mod-btn:hover {
+          transform: translateY(-3px) scale(1.1);
+          box-shadow: 
+              0 12px 48px rgba(139, 92, 246, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3),
+              0 0 0 1px rgba(139, 92, 246, 0.2),
+              0 0 30px rgba(139, 92, 246, 0.3);
+          background: linear-gradient(145deg, var(--mod-secondary), var(--mod-accent));
+      }
+
+      .mod-btn:active {
+          transform: translateY(-1px) scale(1.05);
+      }
+
+      .mod-btn-icon {
+          width: 20px;
+          height: 20px;
+          fill: currentColor;
+          filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+      }
+
+      /* Новый дизайн гайда для модераторов */
+      .mod-guide {
+          display: none;
+          padding: 40px 20px;
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(0, 0, 0, 0.8) 100%);
+          min-height: 100vh;
+          height: 100vh; /* Ensure it takes full height for scrollbar */
+          overflow-y: hidden; /* MODIFIED: Default to hidden, JS will control */
+      }
+
+      /* Scrollbar styling for moderator guide */
+      .mod-guide::-webkit-scrollbar {
+          width: 8px;
+      }
+
+      .mod-guide::-webkit-scrollbar-track {
+          background: var(--secondary-bg);
+      }
+
+      .mod-guide::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, var(--mod-primary), var(--mod-secondary));
+          border-radius: 4px;
+      }
+
+      .mod-guide::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(180deg, var(--mod-secondary), var(--mod-primary));
+      }
+
+      .mod-guide.active {
+          display: block;
+          animation: fadeInUp 0.6s ease-out;
+      }
+
+      .mod-header {
+          text-align: center;
+          margin-bottom: 50px;
+          position: relative;
+      }
+
+      .mod-title {
+          font-size: clamp(2.5rem, 5vw, 4rem);
+          font-weight: 800;
+          background: linear-gradient(45deg, var(--mod-primary), var(--mod-secondary), var(--mod-accent));
+          background-size: 200% 200%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-bottom: 20px;
+          animation: gradientShift 6s ease-in-out infinite;
+          text-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+      }
+
+      .mod-subtitle {
+          font-size: 18px;
+          color: var(--mod-accent);
+          font-weight: 400;
+          opacity: 0.9;
+          margin-bottom: 30px;
+      }
+
+      .back-btn {
+          background: linear-gradient(135deg, var(--tertiary-bg), var(--quaternary-bg));
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid var(--mod-primary);
+          border-radius: 25px;
+          color: var(--mod-accent);
+          padding: 12px 24px;
+          font-size: 15px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+          margin-bottom: 30px;
+          position: relative;
+          overflow: hidden;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+      }
+
+      .back-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+          transition: left 0.5s ease;
+      }
+
+      .back-btn:hover::before {
+          left: 100%;
+      }
+
+      .back-btn:hover {
+          background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
+          color: white;
+          border-color: var(--mod-accent);
+          transform: translateY(-2px) scale(1.02);
+          box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+      }
+
+      /* Новые карточки категорий */
+      .mod-categories {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+          gap: 30px;
+          margin-bottom: 50px;
+      }
+
+      .mod-category-card {
+          background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(167, 139, 250, 0.05));
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 2px solid transparent;
+          border-radius: 24px;
+          padding: 40px 30px;
+          cursor: pointer;
+          transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          box-shadow: 
+              0 10px 40px rgba(139, 92, 246, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+          animation: cardFloat 8s ease-in-out infinite;
+      }
+
+      .mod-category-card:nth-child(2) {
+          animation-delay: -2.6s;
+      }
+
+      .mod-category-card:nth-child(3) {
+          animation-delay: -5.2s;
+      }
+
+      @keyframes cardFloat {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
+      }
+
+      .mod-category-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.2), transparent);
+          transition: left 0.8s ease;
+      }
+
+      .mod-category-card:hover::before {
+          left: 100%;
+      }
+
+      .mod-category-card:hover {
+          transform: translateY(-15px) scale(1.03);
+          box-shadow: 
+              0 25px 80px rgba(139, 92, 246, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2),
+              0 0 0 2px rgba(139, 92, 246, 0.3);
+          border-color: var(--mod-primary);
+      }
+
+      .mod-category-card h3 {
+          font-size: 28px;
+          font-weight: 700;
+          color: var(--mod-primary);
+          margin-bottom: 16px;
+          transition: all 0.3s ease;
+      }
+
+      .mod-category-card:hover h3 {
+          color: var(--mod-accent);
+          text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+      }
+
+      .mod-category-card p {
+          color: var(--text-secondary);
+          font-size: 16px;
+          line-height: 1.6;
+          transition: all 0.3s ease;
+      }
+
+      .mod-category-card:hover p {
+          color: var(--text-primary);
+      }
+
+      /* Новый дизайн контента */
+      .mod-content {
+          display: none;
+      }
+
+      .mod-content.active {
+          display: block;
+          animation: slideInRight 0.6s ease-out;
+      }
+
+      @keyframes slideInRight {
+          from {
+              opacity: 0;
+              transform: translateX(30px);
+          }
+          to {
+              opacity: 1;
+              transform: translateX(0);
+          }
+      }
+
+      .mod-section {
+          background: linear-gradient(145deg, rgba(139, 92, 246, 0.08), rgba(0, 0, 0, 0.4));
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(139, 92, 246, 0.2);
+          border-radius: 24px;
+          padding: 40px;
+          margin-bottom: 30px;
+          box-shadow: 
+              0 10px 40px rgba(139, 92, 246, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          position: relative;
+          overflow: hidden;
+          animation: sectionSlide 0.6s ease-out;
+      }
+
+      @keyframes sectionSlide {
+          from {
+              opacity: 0;
+              transform: translateY(20px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      .mod-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, var(--mod-primary), var(--mod-secondary), var(--mod-accent));
+          background-size: 200% 100%;
+          animation: borderFlow 4s linear infinite;
+      }
+
+      .mod-section h3 {
+          color: var(--mod-primary);
+          font-size: 24px;
+          font-weight: 700;
+          margin-bottom: 24px;
+          padding-bottom: 16px;
+          border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+          animation: textGlow 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes textGlow {
+          0% { text-shadow: 0 0 10px rgba(139, 92, 246, 0.3); }
+          100% { text-shadow: 0 0 20px rgba(139, 92, 246, 0.6); }
+      }
+
+      .mod-section h4 {
+          color: var(--mod-accent);
+          font-size: 20px;
+          font-weight: 600;
+          margin: 24px 0 16px 0;
+      }
+
+      .mod-section p, .mod-section li {
+          color: var(--text-secondary);
+          font-size: 16px;
+          line-height: 1.7;
+          margin-bottom: 12px;
+      }
+
+      .mod-section ul {
+          padding-left: 24px;
+          margin-bottom: 20px;
+      }
+
+      .mod-section li {
+          margin-bottom: 10px;
+          position: relative;
+      }
+
+      .mod-section li::marker {
+          color: var(--mod-primary);
+      }
+
+      .mod-section code {
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(167, 139, 250, 0.1));
+          color: var(--mod-accent);
+          padding: 6px 12px;
+          border-radius: 8px;
+          font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+          font-size: 14px;
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          transition: all 0.3s ease;
+          font-weight: 600;
+          cursor: pointer; /* Make code blocks clickable */
+      }
+
+      .mod-section code:hover {
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(167, 139, 250, 0.2));
+          box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+          transform: scale(1.05);
+          border-color: var(--mod-primary);
+      }
+
+      .divider {
+          height: 3px;
+          background: linear-gradient(90deg, transparent, var(--mod-primary), var(--mod-secondary), var(--mod-accent), transparent);
+          margin: 40px 0;
+          animation: dividerPulse 3s ease-in-out infinite;
+          border-radius: 2px;
+      }
+
+      @keyframes dividerPulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+      }
+
+      .commands-table {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          gap: 16px;
+          margin: 24px 0;
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+      }
+
+      .commands-table-header {
+          background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
+          padding: 16px 20px;
+          font-weight: 700;
+          color: white;
+          font-size: 15px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+      }
+
+      .commands-table-cell {
+          background: rgba(139, 92, 246, 0.05);
+          padding: 16px 20px;
+          color: var(--text-secondary);
+          border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+      }
+
+      .commands-table-cell:hover {
+          background: rgba(139, 92, 246, 0.1);
+          color: var(--text-primary);
+          transform: scale(1.01);
+      }
+
+      .commands-table-cell:last-child,
+      .commands-table-cell:nth-last-child(2) {
+          border-bottom: none;
+      }
+
+      .filter-buttons {
+          display: flex;
+          gap: 12px;
+          margin: 20px 0;
+          flex-wrap: wrap;
+      }
+
+      .filter-btn {
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(167, 139, 250, 0.05));
+          border: 1px solid rgba(139, 92, 246, 0.3);
+          color: var(--mod-accent);
+          padding: 8px 16px;
+          border-radius: 12px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+      }
+
+      .filter-btn:hover {
+          background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+      }
+
+      .filter-btn.active {
+          background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
+          color: white;
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+      }
+
+      .command-list {
+          display: grid;
+          gap: 12px;
+          margin: 20px 0;
+      }
+
+      .command-item {
+          background: rgba(139, 92, 246, 0.05);
+          border: 1px solid rgba(139, 92, 246, 0.2);
+          border-radius: 12px;
+          padding: 16px 20px;
+          transition: all 0.3s ease;
+      }
+
+      .command-item:hover {
+          background: rgba(139, 92, 246, 0.1);
+          transform: translateX(4px);
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+      }
+
+      .command-item code {
+          margin-right: 12px;
+      }
+
+      @keyframes fadeInUp {
+          from {
+              opacity: 0;
+              transform: translateY(30px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      /* Scrollbar styling */
+      /* Orange scrollbar for main page */
+      ::-webkit-scrollbar {
+          width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+          background: var(--secondary-bg);
+      }
+
+      ::-webkit-scrollbar-thumb {
+          background: linear-gradient(180deg, var(--accent-color), var(--accent-hover));
+          border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(180deg, var(--accent-hover), var(--accent-color));
+      }
+
+      /* New styles for all spam commands section */
+      .all-commands-toggle-btn {
+          background: linear-gradient(135deg, var(--mod-primary), var(--mod-secondary));
+          border: none;
+          border-radius: 12px;
+          color: white;
+          padding: 12px 24px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          margin-top: 20px;
+          display: block; /* Make it a block element to center */
+          margin-left: auto;
+          margin-right: auto;
+          box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+      }
+
+      .all-commands-toggle-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+      }
+
+      .all-commands-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive columns */
+          gap: 15px;
+          margin-top: 30px;
+          padding: 20px;
+          background: rgba(139, 92, 246, 0.03);
+          border-radius: 16px;
+          border: 1px solid rgba(139, 92, 246, 0.1);
+          box-shadow: inset 0 0 10px rgba(139, 92, 246, 0.05);
+      }
+
+      .command-column {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+      }
+
+      .copy-command-item {
+          background: rgba(139, 92, 246, 0.08);
+          border: 1px solid rgba(139, 92, 246, 0.2);
+          border-radius: 8px;
+          padding: 8px 12px;
+          font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+          font-size: 14px;
+          color: var(--mod-accent);
+          cursor: pointer;
+          transition: all 0.2s ease;
+          display: inline-block; /* To allow padding and margin */
+          text-align: center;
+          white-space: nowrap; /* Prevent wrapping */
+          overflow: hidden; /* Hide overflow */
+          text-overflow: ellipsis; /* Add ellipsis if text overflows */
+      }
+
+      .copy-command-item:hover {
+          background: rgba(139, 92, 246, 0.15);
+          box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+          transform: translateY(-2px);
+      }
+
+
+      @media (max-width: 768px) {
+          .container {
+              padding: 20px 16px;
+          }
+
+          .header {
+              margin-bottom: 30px;
+          }
+
+          .categories {
+              flex-wrap: wrap;
+              gap: 12px;
+          }
+
+          .category-btn {
+              padding: 12px 24px;
+              font-size: 14px;
+          }
+
+          .commands-header,
+          .command-row {
+              grid-template-columns: 1fr;
+              gap: 16px;
+              padding: 16px 20px;
+          }
+
+          .commands-header {
+              text-align: center;
+          }
+
+          .command-name {
+              justify-content: flex-start;
+          }
+
+          .search-input {
+              padding: 16px 20px 16px 48px;
+              font-size: 16px;
+          }
+
+          .search-icon {
+              left: 16px;
+              width: 18px;
+              height: 18px;
+          }
+
+          .mod-categories {
+              grid-template-columns: 1fr;
+          }
+
+          .mod-btn {
+              top: 16px;
+              left: 16px;
+              width: 44px;
+              height: 44px;
+              padding: 10px;
+          }
+
+          .mod-btn-icon {
+              width: 18px;
+              height: 18px;
+          }
+
+          .commands-table {
+              grid-template-columns: 1fr;
+          }
+
+          /* For smaller screens, reduce column count */
+          .all-commands-grid {
+              grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+              gap: 10px;
+              padding: 15px;
+          }
+          .copy-command-item {
+              font-size: 12px;
+              padding: 6px 8px;
+          }
+
+          /* Скрыть фоновые эффекты на мобильных */
+          .cyber-background {
+              display: none;
+          }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+          * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+          }
+          
+          .title {
+              animation: none;
+              background: linear-gradient(45deg, var(--accent-color) 0%, #ff6b35 100%);
+          }
+
+          .cyber-background {
+              display: none;
+          }
+      }
+  </style>
 </head>
 <body>
-    <!-- Киберпанк фон -->
-    <div class="cyber-background">
-        <!-- Анимированная сетка -->
-        <div class="cyber-grid"></div>
-        
-        <!-- Энергетические импульсы -->
-        <div class="energy-pulse pulse-1"></div>
-        <div class="energy-pulse pulse-2"></div>
-        <div class="energy-pulse pulse-3"></div>
-        
-        <!-- Неоновые линии -->
-        <div class="neon-line line-1"></div>
-        <div class="neon-line line-2"></div>
-        <div class="neon-line line-vertical line-v1"></div>
-        <div class="neon-line line-vertical line-v2"></div>
-        
-        <!-- Голографический глитч -->
-        <div class="glitch-overlay"></div>
-    </div>
+  <!-- Киберпанк фон -->
+  <div class="cyber-background">
+      <!-- Анимированная сетка -->
+      <div class="cyber-grid"></div>
+      
+      <!-- Энергетические импульсы -->
+      <div class="energy-pulse pulse-1"></div>
+      <div class="energy-pulse pulse-2"></div>
+      <div class="energy-pulse pulse-3"></div>
+      
+      <!-- Неоновые линии -->
+      <div class="neon-line line-1"></div>
+      <div class="neon-line line-2"></div>
+      <div class="neon-line line-vertical line-v1"></div>
+      <div class="neon-line line-vertical line-v2"></div>
+      
+      <!-- Голографический глитч -->
+      <div class="glitch-overlay"></div>
+  </div>
 
-    <!-- КНОПКА МОДЕРАТОРОВ С РЫЦАРСКИМ МЕЧОМ -->
-    <button class="mod-btn" onclick="showModGuide()">
-        <svg class="mod-btn-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2L13.5 8.5L20 10L13.5 11.5L12 18L10.5 11.5L4 10L10.5 8.5L12 2Z"/>
-            <path d="M12 18V22"/>
-            <path d="M10 20H14"/>
-            <path d="M9 22H15"/>
-        </svg>
-    </button>
+  <!-- КНОПКА МОДЕРАТОРОВ С РЫЦАРСКИМ МЕЧОМ -->
+  <button class="mod-btn" onclick="showModGuide()">
+      <svg class="mod-btn-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L13.5 8.5L20 10L13.5 11.5L12 18L10.5 11.5L4 10L10.5 8.5L12 2Z"/>
+          <path d="M12 18V22"/>
+          <path d="M10 20H14"/>
+          <path d="M9 22H15"/>
+      </svg>
+  </button>
 
-    <!-- Main Commands Page -->
-    <div id="mainPage" class="container">
-        <header class="header">
-            <h1 class="title">Команды Kxrvinho</h1>
-        </header>
+  <!-- Main Commands Page -->
+  <div id="mainPage" class="container">
+      <header class="header">
+          <h1 class="title">Команды Kxrvinho</h1>
+      </header>
 
-        <div class="search-container">
-            <div class="search-wrapper">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.39zM11 18a7 7 0 1 1 7-7 7 7 0 0 1-7 7z"/>
-                </svg>
-                <input 
-                    type="text" 
-                    class="search-input" 
-                    id="commandSearch" 
-                    placeholder="Поиск команды... (например, !sens, !discord)"
-                    autocomplete="off"
-                    spellcheck="false"
-                >
-            </div>
-        </div>
+      <div class="search-container">
+          <div class="search-wrapper">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.39zM11 18a7 7 0 1 1 7-7 7 7 0 0 1-7 7z"/>
+              </svg>
+              <input 
+                  type="text" 
+                  class="search-input" 
+                  id="commandSearch" 
+                  placeholder="Поиск команды... (например, !sens, !discord)"
+                  autocomplete="off"
+                  spellcheck="false"
+              >
+          </div>
+      </div>
 
-        <div class="categories">
-            <button class="category-btn active" data-category="all">Все</button>
-            <button class="category-btn" data-category="fortnite">Fortnite</button>
-            <button class="category-btn" data-category="setup">Setup</button>
-            <button class="category-btn" data-category="socials">Socials</button>
-        </div>
+      <div class="categories">
+          <button class="category-btn active" data-category="all">Все</button>
+          <button class="category-btn" data-category="fortnite">Fortnite</button>
+          <button class="category-btn" data-category="setup">Setup</button>
+          <button class="category-btn" data-category="socials">Socials</button>
+      </div>
 
-        <div class="commands-container">
-            <div class="commands-header">
-                <div>Команда</div>
-                <div>Ответ</div>
-            </div>
-            <div class="commands-list" id="commandsList">
-                <!-- Commands will be populated by JavaScript -->
-            </div>
-        </div>
-    </div>
+      <div class="commands-container">
+          <div class="commands-header">
+              <div>Команда</div>
+              <div>Ответ</div>
+          </div>
+          <div class="commands-list" id="commandsList">
+              <!-- Commands will be populated by JavaScript -->
+          </div>
+      </div>
+  </div>
 
-    <!-- Обновленный гайд для модераторов -->
-    <div id="modPage" class="container mod-guide">
-        <div class="mod-header">
-            <button class="back-btn" onclick="showMainPage()">← Назад к командам</button>
-            <h1 class="mod-title">Гайд для модераторов</h1>
-        </div>
+  <!-- Обновленный гайд для модераторов -->
+  <div id="modPage" class="container mod-guide">
+      <div class="mod-header">
+          <button class="back-btn" onclick="showMainPage()">← Назад к командам</button>
+          <h1 class="mod-title">Гайд для модераторов</h1>
+      </div>
 
-        <!-- Category Selection -->
-        <div id="modCategories" class="mod-categories">
-            <div class="mod-category-card" onclick="showModContent('spam')">
-                <h3>Спам</h3>
-                <p>Информация о командах для спама</p>
-            </div>
-            <div class="mod-category-card" onclick="showModContent('bets')">
-                <h3>Ставки</h3>
-                <p>Создание ставок и управление с помощью команд</p>
-            </div>
-            <div class="mod-category-card" onclick="showModContent('commands')">
-                <h3>Команды</h3>
-                <p>Добавление, редактирование и удаление кастомных команд</p>
-            </div>
-        </div>
+      <!-- Category Selection -->
+      <div id="modCategories" class="mod-categories">
+          <div class="mod-category-card" onclick="showModContent('spam')">
+              <h3>Спам</h3>
+              <p>Информация о командах для спама</p>
+          </div>
+          <div class="mod-category-card" onclick="showModContent('bets')">
+              <h3>Ставки</h3>
+              <p>Создание ставок и управление с помощью команд</p>
+          </div>
+          <div class="mod-category-card" onclick="showModContent('commands')">
+              <h3>Команды</h3>
+              <p>Добавление, редактирование и удаление кастомных команд</p>
+          </div>
+      </div>
 
-        <!-- Spam Content -->
-        <div id="spamContent" class="mod-content">
-            <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
-            
-            <div class="mod-section">
-                <h3>Команды для спама</h3>
-                <p>Пропишите <code>!команды1</code>, чтобы увидеть список команд, которые можно проспамить с помощью команды</p>
-                
-                <h4>Основные команды спама:</h4>
-                <ul>
-                    <li><code>!спам &lt;команда&gt; &lt;1-10&gt;</code> - напишет сообщения БЕЗ анонса</li>
-                    <li><code>!спама &lt;команда&gt; &lt;1-5&gt;</code> - напишет сообщения с анонсом</li>
-                </ul>
-                
-                <p>Команда <code>!спам &lt;команда&gt; &lt;1-10&gt;</code> может отправлять обычный текст, обычные команды (в самом конфиге) и кастомные (т.е созданные в самом чате, существующие кастомные команды указаны в <code>!команды1</code>)</p>
-                
-                <p>Команда <code>!спама &lt;команда&gt; &lt;1-5&gt;</code> может отправлять ТОЛЬКО обычный текст и кастомные команды</p>
-                
-                <h4>Автоматическое включение/выключение смайл-мода</h4>
-                <p>Если вы используете:</p>
-                <ul>
-                    <li>Обычный спам: от 8 до 10 сообщений</li>
-                    <li>Спам анонсами: от 3 до 5 сообщений</li>
-                </ul>
-                <p>то смайл-мод будет автоматически включён или выключен.</p>
-                
-                <p><strong>Обратите внимание:</strong> эти команды работают только во время активного стрима.</p>
-                
-                <p>Помимо кастомных, есть встроенные команды:</p>
-                
-                <div class="filter-buttons">
-                    <button class="filter-btn active" onclick="filterSpamCommands('all')">Все</button>
-                    <button class="filter-btn" onclick="filterSpamCommands('both')">Анонс/Без анонса</button>
-                    <button class="filter-btn" onclick="filterSpamCommands('normal')">Обычный спам</button>
-                </div>
-                
-                <div id="spamCommandsList">
-                    <h4>Команды, у которых как обычный спам, так и с анонсом:</h4>
-                    <div class="command-list" id="bothCommands">
-                        <div class="command-item"><code>!карта</code> 🏆 SIGMА 1V1 - 1602-5676-9780 – ЗАХОДИ НА ЛУЧШУЮ КАРТУ В FORTNITE! GlitchCat</div>
-                        <div class="command-item"><code>!крейзипвп</code> 🔥 Новая карта для фана – CRAZY PVP - ALL GUNS! Бери любое оружие, суперсилу, гоняй на чем хочешь и мочи всех в одном безумном замесе! Код: 0852-9606-7878 🔥</div>
-                        <div class="command-item"><code>!аук</code> АУК НА ФИЛЬМ https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate</div>
-                        <div class="command-item"><code>!код</code> USE CODE GG33 IN FORTNITE SHOP | FAVORITE CREATOR GG33</div>
-                        <div class="command-item"><code>!музыка</code> Заказать свою музыку на стрим – 155₽ - https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate</div>
-                        <div class="command-item"><code>!сигматг</code> Чтобы сыграть на стриме нужно - Поставить лайк на карте SIGMА 1v1 (1602-5676-9780) + добавить в FAVORITE , скинуть ОДИН скрин в тг, под последний пост и написать свой ник - https://t.me/kxrvinhoGG33</div>
-                        <div class="command-item"><code>!соц</code> USE CODE GG33 IN FORTNITE SHOP / DS- https://discord.gg/eUuvyvDVy6 / TG- https://t.me/kxrvinhoGG33 / TT- https://www.tiktok.com/@kxrvinho28</div>
-                        <div class="command-item"><code>!тг</code> ТГ КАНАЛ -> https://t.me/kxrvinhoGG33 🐶</div>
-                        <div class="command-item"><code>!дс</code> Присоединяйся к дискорд серверу, на котором есть всё! https://discord.gg/eUuvyvDVy6 PopNemo</div>
-                        <div class="command-item"><code>!игруля</code> Смотри стрим по игре "Bullet Yeeters" с Twitch Drops 60 мин → вступи в Discord https://discord.gg/nNHDAM3r (канал #🔑・join-playtest) → жми Get Steam Key → проверь личные сообщения (DM должны быть открыты)</div>
-                    </div>
-                    
-                    <h4>Команды, у которых только обычный спам:</h4>
-                    <div class="command-list" id="normalCommands">
-                        <div class="command-item"><code>!крейзи</code> 0852-9606-7878</div>
-                        <div class="command-item"><code>!сигма</code> 1602-5676-9780</div>
-                    </div>
-                </div>
-                
-                <h4>Пример команд:</h4>
-                <ul>
-                    <li><code>!сигма10</code> (проспамит команду 10 раз обычным текстом) / <code>!сигма*</code> (вместо * от 1 до 10)</li>
-                    <li><code>!код5а</code> (проспамит команду 5 раз с помощью анонса) / <code>!код*а</code> (вместо * от 1 до 5)</li>
-                </ul>
-            </div>
-        </div>
+      <!-- Spam Content -->
+      <div id="spamContent" class="mod-content">
+          <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
+          
+          <div class="mod-section">
+              <h3>Команды для спама</h3>
+              <p>Пропишите <code>!команды1</code>, чтобы увидеть список команд, которые можно проспамить с помощью команды</p>
+              
+              <h4>Основные команды спама:</h4>
+              <ul>
+                  <li><code onclick="app.copyCommand('!спам <команда> <1-10>')">!спам &lt;команда&gt; &lt;1-10&gt;</code> - напишет сообщения БЕЗ анонса</li>
+                  <li><code onclick="app.copyCommand('!спама <команда> <1-5>')">!спама &lt;команда&gt; &lt;1-5&gt;</code> - напишет сообщения с анонсом</li>
+              </ul>
+              
+              <p>Команда <code onclick="app.copyCommand('!спам <команда> <1-10>')">!спам &lt;команда&gt; &lt;1-10&gt;</code> может отправлять обычный текст, обычные команды (в самом конфиге) и кастомные (т.е созданные в самом чате, существующие кастомные команды указаны в <code>!команды1</code>)</p>
+              
+              <p>Команда <code onclick="app.copyCommand('!спама <команда> <1-5>')">!спама &lt;команда&gt; &lt;1-5&gt;</code> может отправлять ТОЛЬКО обычный текст и кастомные команды</p>
+              
+              <h4>Автоматическое включение/выключение смайл-мода</h4>
+              <p>Если вы используете:</p>
+              <ul>
+                  <li>Обычный спам: от 8 до 10 сообщений</li>
+                  <li>Спам анонсами: от 3 до 5 сообщений</li>
+              </ul>
+              <p>то смайл-мод будет автоматически включён или выключен.</p>
+              
+              <p><strong>Обратите внимание:</strong> эти команды работают только во время активного стрима.</p>
+              
+              <p>Помимо кастомных, есть встроенные команды:</p>
+              
+              <div class="filter-buttons">
+                  <button class="filter-btn active" onclick="filterSpamCommands('all')">Все</button>
+                  <button class="filter-btn" onclick="filterSpamCommands('both')">Анонс/Без анонса</button>
+                  <button class="filter-btn" onclick="filterSpamCommands('normal')">Обычный спам</button>
+              </div>
+              
+              <div id="spamCommandsList">
+                  <h4>Команды, у которых как обычный спам, так и с анонсом:</h4>
+                  <div class="command-list" id="bothCommands">
+                      <div class="command-item"><code onclick="app.copyCommand('!карта')">!карта</code> 🏆 SIGMА 1V1 - 1602-5676-9780 – ЗАХОДИ НА ЛУЧШУЮ КАРТУ В FORTNITE! GlitchCat</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!крейзипвп')">!крейзипвп</code> 🔥 Новая карта для фана – CRAZY PVP - ALL GUNS! Бери любое оружие, суперсилу, гоняй на чем хочешь и мочи всех в одном безумном замесе! Код: 0852-9606-7878 🔥</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!аук')">!аук</code> АУК НА ФИЛЬМ https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!код')">!код</code> USE CODE GG33 IN FORTNITE SHOP | FAVORITE CREATOR GG33</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!музыка')">!музыка</code> Заказать свою музыку на стрим – 155₽ - https://donatepay.eu/don/22792 / https://destream.net/live/kxrvinho/donate</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!сигматг')">!сигматг</code> Чтобы сыграть на стриме нужно - Поставить лайк на карте SIGMА 1v1 (1602-5676-9780) + добавить в FAVORITE , скинуть ОДИН скрин в тг, под последний пост и написать свой ник - https://t.me/kxrvinhoGG33</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!соц')">!соц</code> USE CODE GG33 IN FORTNITE SHOP / DS- https://discord.gg/eUuvyvDVy6 / TG- https://t.me/kxrvinhoGG33 / TT- https://www.tiktok.com/@kxrvinho28</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!тг')">!тг</code> ТГ КАНАЛ -> https://t.me/kxrvinhoGG33 🐶</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!дс')">!дс</code> Присоединяйся к дискорд серверу, на котором есть всё! https://discord.gg/eUuvyvDVy6 PopNemo</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!игруля')">!игруля</code> Смотри стрим по игре "Bullet Yeeters" с Twitch Drops 60 мин → вступи в Discord https://discord.gg/nNHDAM3r (канал #🔑・join-playtest) → жми Get Steam Key → проверь личные сообщения (DM должны быть открыты)</div>
+                  </div>
+                  
+                  <h4>Команды, у которых только обычный спам:</h4>
+                  <div class="command-list" id="normalCommands">
+                      <div class="command-item"><code onclick="app.copyCommand('!крейзи')">!крейзи</code> 0852-9606-7878</div>
+                      <div class="command-item"><code onclick="app.copyCommand('!сигма')">!сигма</code> 1602-5676-9780</div>
+                  </div>
+              </div>
+              
+              <h4>Пример команд:</h4>
+              <ul>
+                  <li><code onclick="app.copyCommand('!сигма10')">!сигма10</code> (проспамит команду 10 раз обычным текстом) / <code onclick="app.copyCommand('!сигма*')">!сигма*</code> (вместо * от 1 до 10)</li>
+                  <li><code onclick="app.copyCommand('!код5а')">!код5а</code> (проспамит команду 5 раз с помощью анонса) / <code onclick="app.copyCommand('!код*а')">!код*а</code> (вместо * от 1 до 5)</li>
+              </ul>
 
-        <!-- Bets Content -->
-        <div id="betsContent" class="mod-content">
-            <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
-            
-            <div class="mod-section">
-                <h3>Список команд для создания ставки</h3>
-                <p><code>!ставка</code> (рандомная ставка из списка ниже)</p>
-                
-                <ul>
-                    <li>Займет ли топ 1? 🥇 <code>!ставкатоп1</code></li>
-                    <li>Займет ли топ 5? 🤼‍♂️ <code>!ставкатоп5</code></li>
-                    <li>Займет ли топ 10? 🤼‍♂️ <code>!ставкатоп10</code></li>
-                    <li>Займет ли топ 15? 🤼‍♂️ <code>!ставкатоп15</code></li>
-                    <li>Займет ли топ 20? 🤼‍♂️ <code>!ставкатоп20</code></li>
-                    <li>Займет ли топ 25? 🤼‍♂️ <code>!ставкатоп25</code></li>
-                    <li>Займет ли топ 50? 🤼‍♂️ <code>!ставкатоп50</code></li>
-                    <li>Сделает 1 килл? 🗡️ <code>!ставка1килл</code></li>
-                    <li>Сделает 2 килла? 🗡️ <code>!ставка2килла</code></li>
-                    <li>Сделает 3 килла? 🗡️ <code>!ставка3килла</code></li>
-                    <li>Сделает 4 килла? 🗡️ <code>!ставка4килла</code></li>
-                    <li>Сделает 5 киллов? 🗡️ <code>!ставка5киллов</code></li>
-                    <li>Сделает 6 киллов? 🗡️ <code>!ставка6киллов</code></li>
-                    <li>Сделает 7 киллов? 🗡️ <code>!ставка7киллов</code></li>
-                    <li>Сделает 8 киллов? 🗡️ <code>!ставка8киллов</code></li>
-                    <li>Сделает 9 киллов? 🗡️ <code>!ставка9киллов</code></li>
-                    <li>Сделает 10 киллов? 🗡️ <code>!ставка10киллов</code></li>
-                    <li>Миник с первого сундука? 🧪 <code>!ставкаминик</code></li>
-                    <li>Бига с первого сундука? 🍺 <code>!ставкабига</code></li>
-                    <li>Аптечка с первого сундука? 🧰 <code>!ставкааптечка</code></li>
-                    <li>Найдет легендарное оружие? 🔫 <code>!ставкалега</code></li>
-                    <li>Умрет ли от зоны? 🌩 <code>!ставказона</code></li>
-                    <li>Умрет от хедшота? 💀 <code>!ставкахедшот</code></li>
-                    <li>Умрет от стримснайпера? 🐵 <code>!ставкастримснайп</code></li>
-                    <li>Умрет от падения? 🪂 <code>!ставкападение</code></li>
-                    <li>Умрет от транспорта? (любого вида) 🛴 <code>!ставкатранспорт</code></li>
-                </ul>
-            </div>
+              <h4 style="margin-top: 40px;">Показать все примеры команд:</h4>
+              <button class="all-commands-toggle-btn" id="toggleAllSpamCommandsBtn" onclick="toggleAllSpamCommands()">Показать все примеры команд:</button>
+              <div class="all-commands-grid" id="allSpamCommandsContainer" style="display: none;">
+                  <!-- Commands will be generated by JavaScript -->
+              </div>
+          </div>
+      </div>
 
-            <div class="divider"></div>
+      <!-- Bets Content -->
+      <div id="betsContent" class="mod-content">
+          <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
+          
+          <div class="mod-section">
+              <h3>Список команд для создания ставки</h3>
+              <p><code onclick="app.copyCommand('!ставка')">!ставка</code> (рандомная ставка из списка ниже)</p>
+              
+              <ul>
+                  <li>Займет ли топ 1? 🥇 <code onclick="app.copyCommand('!ставкатоп1')">!ставкатоп1</code></li>
+                  <li>Займет ли топ 5? 🤼‍♂️ <code onclick="app.copyCommand('!ставкатоп5')">!ставкатоп5</code></li>
+                  <li>Займет ли топ 10? 🤼‍♂️ <code onclick="app.copyCommand('!ставкатоп10')">!ставкатоп10</code></li>
+                  <li>Займет ли топ 15? 🤼‍♂️ <code onclick="app.copyCommand('!ставкатоп15')">!ставкатоп15</code></li>
+                  <li>Займет ли топ 20? 🤼‍♂️ <code onclick="app.copyCommand('!ставкатоп20')">!ставкатоп20</code></li>
+                  <li>Займет ли топ 25? 🤼‍♂️ <code onclick="app.copyCommand('!ставкатоп25')">!ставкатоп25</code></li>
+                  <li>Займет ли топ 50? 🤼‍♂️ <code onclick="app.copyCommand('!ставкатоп50')">!ставкатоп50</code></li>
+                  <li>Сделает 1 килл? 🗡️ <code onclick="app.copyCommand('!ставка1килл')">!ставка1килл</code></li>
+                  <li>Сделает 2 килла? 🗡️ <code onclick="app.copyCommand('!ставка2килла')">!ставка2килла</code></li>
+                  <li>Сделает 3 килла? 🗡️ <code onclick="app.copyCommand('!ставка3килла')">!ставка3килла</code></li>
+                  <li>Сделает 4 килла? 🗡️ <code onclick="app.copyCommand('!ставка4килла')">!ставка4килла</code></li>
+                  <li>Сделает 5 киллов? 🗡️ <code onclick="app.copyCommand('!ставка5киллов')">!ставка5киллов</code></li>
+                  <li>Сделает 6 киллов? 🗡️ <code onclick="app.copyCommand('!ставка6киллов')">!ставка6киллов</code></li>
+                  <li>Сделает 7 киллов? 🗡️ <code onclick="app.copyCommand('!ставка7киллов')">!ставка7киллов</code></li>
+                  <li>Сделает 8 киллов? 🗡️ <code onclick="app.copyCommand('!ставка8киллов')">!ставка8киллов</code></li>
+                  <li>Сделает 9 киллов? 🗡️ <code onclick="app.copyCommand('!ставка9киллов')">!ставка9киллов</code></li>
+                  <li>Сделает 10 киллов? 🗡️ <code onclick="app.copyCommand('!ставка10киллов')">!ставка10киллов</code></li>
+                  <li>Миник с первого сундука? 🧪 <code onclick="app.copyCommand('!ставкаминик')">!ставкаминик</code></li>
+                  <li>Бига с первого сундука? 🍺 <code onclick="app.copyCommand('!ставкабига')">!ставкабига</code></li>
+                  <li>Аптечка с первого сундука? 🧰 <code onclick="app.copyCommand('!ставкааптечка')">!ставкааптечка</code></li>
+                  <li>Найдет легендарное оружие? 🔫 <code onclick="app.copyCommand('!ставкалега')">!ставкалега</code></li>
+                  <li>Умрет ли от зоны? 🌩 <code onclick="app.copyCommand('!ставказона')">!ставказона</code></li>
+                  <li>Умрет от хедшота? 💀 <code onclick="app.copyCommand('!ставкахедшот')">!ставкахедшот</code></li>
+                  <li>Умрет от стримснайпера? 🐵 <code onclick="app.copyCommand('!ставкастримснайп')">!ставкастримснайп</code></li>
+                  <li>Умрет от падения? 🪂 <code onclick="app.copyCommand('!ставкападение')">!ставкападение</code></li>
+                  <li>Умрет от транспорта? (любого вида) 🛴 <code onclick="app.copyCommand('!ставкатранспорт')">!ставкатранспорт</code></li>
+              </ul>
+          </div>
 
-            <div class="mod-section">
-                <h3>Reload ставки</h3>
-                <p><code>!релоад</code> (рандомная ставка из списка ниже)</p>
-                
-                <ul>
-                    <li>Займет ли топ 1? 🥇 <code>!ставкатоп1р</code></li>
-                    <li>Сделает 10 киллов? ⚔️ <code>!ставка10килловр</code></li>
-                    <li>Сделает 11 киллов? ⚔️ <code>!ставка11киллов</code></li>
-                    <li>Сделает 12 киллов? ⚔️ <code>!ставка12киллов</code></li>
-                    <li>Сделает 13 киллов? ⚔️ <code>!ставка13киллов</code></li>
-                    <li>Сделает 14 киллов? ⚔️ <code>!ставка14киллов</code></li>
-                    <li>Сделает 15 киллов? ⚔️ <code>!ставка15киллов</code></li>
-                    <li>Сделает 16 киллов? ⚔️ <code>!ставка16киллов</code></li>
-                    <li>Сделает 17 киллов? ⚔️ <code>!ставка17киллов</code></li>
-                </ul>
-            </div>
+          <div class="divider"></div>
 
-            <div class="divider"></div>
+          <div class="mod-section">
+              <h3>Reload ставки</h3>
+              <p><code onclick="app.copyCommand('!релоад')">!релоад</code> (рандомная ставка из списка ниже)</p>
+              
+              <ul>
+                  <li>Займет ли топ 1? 🥇 <code onclick="app.copyCommand('!ставкатоп1р')">!ставкатоп1р</code></li>
+                  <li>Сделает 10 киллов? ⚔️ <code onclick="app.copyCommand('!ставка10килловр')">!ставка10килловр</code></li>
+                  <li>Сделает 11 киллов? ⚔️ <code onclick="app.copyCommand('!ставка11киллов')">!ставка11киллов</code></li>
+                  <li>Сделает 12 киллов? ⚔️ <code onclick="app.copyCommand('!ставка12киллов')">!ставка12киллов</code></li>
+                  <li>Сделает 13 киллов? ⚔️ <code onclick="app.copyCommand('!ставка13киллов')">!ставка13киллов</code></li>
+                  <li>Сделает 14 киллов? ⚔️ <code onclick="app.copyCommand('!ставка14киллов')">!ставка14киллов</code></li>
+                  <li>Сделает 15 киллов? ⚔️ <code onclick="app.copyCommand('!ставка15киллов')">!ставка15киллов</code></li>
+                  <li>Сделает 16 киллов? ⚔️ <code onclick="app.copyCommand('!ставка16киллов')">!ставка16киллов</code></li>
+                  <li>Сделает 17 киллов? ⚔️ <code onclick="app.copyCommand('!ставка17киллов')">!ставка17киллов</code></li>
+              </ul>
+          </div>
 
-            <div class="mod-section">
-                <h3>1v1s ставки</h3>
-                <p><code>!1v1s</code> (рандомная ставка из списка ниже)</p>
-                
-                <ul>
-                    <li>Победит ли всухую? <code>!ставкасухая</code></li>
-                    <li>Выиграет ли подписчика? <code>!ставкапобеда</code></li>
-                    <li>Попадется со стримснайпером из ранкеда? 🐵 <code>!ставкастримснайпер</code></li>
-                </ul>
-            </div>
+          <div class="divider"></div>
 
-            <div class="divider"></div>
+          <div class="mod-section">
+              <h3>1v1s ставки</h3>
+              <p><code onclick="app.copyCommand('!1v1s')">!1v1s</code> (рандомная ставка из списка ниже)</p>
+              
+              <ul>
+                  <li>Победит ли всухую? <code onclick="app.copyCommand('!ставкасухая')">!ставкасухая</code></li>
+                  <li>Выиграет ли подписчика? <code onclick="app.copyCommand('!ставкапобеда')">!ставкапобеда</code></li>
+                  <li>Попадется со стримснайпером из ранкеда? 🐵 <code onclick="app.copyCommand('!ставкастримснайпер')">!ставкастримснайпер</code></li>
+              </ul>
+          </div>
 
-            <div class="mod-section">
-                <h3>Дополнительное создание ставок</h3>
-                
-                <h4>Длительность</h4>
-                <p><code>duration60</code> или <code>duration 60</code> (Любое целое число между 30 до 1800 секунд)</p>
-                <p>Например: <code>!prediction duration 60 / Да / Нет</code></p>
+          <div class="divider"></div>
 
-                <h4>Название ставки</h4>
-                <p>Например: <code>!prediction title За сколько попыток он победит босса? / 1/2/3/4/5/6/7/8/9/10</code></p>
+          <div class="mod-section">
+              <h3>Дополнительное создание ставок</h3>
+              
+              <h4>Длительность</h4>
+              <p><code onclick="app.copyCommand('duration60')">duration60</code> или <code onclick="app.copyCommand('duration 60')">duration 60</code> (Любое целое число между 30 до 1800 секунд)</p>
+              <p>Например: <code onclick="app.copyCommand('!prediction duration 60 / Да / Нет')">!prediction duration 60 / Да / Нет</code></p>
 
-                <h4>Комбинированный пример</h4>
-                <p>Например: как с продолжительностью, так и с названием</p>
-                <p><code>!prediction duration 30 / title Остановит ли он босса? / Да / Нет</code></p>
+              <h4>Название ставки</h4>
+              <p>Например: <code onclick="app.copyCommand('!prediction title За сколько попыток он победит босса? / 1/2/3/4/5/6/7/8/9/10')">!prediction title За сколько попыток он победит босса? / 1/2/3/4/5/6/7/8/9/10</code></p>
 
-                <h4>Настройки</h4>
-                <p>Требуемые аргументы - это настройки для ставок, разделенные /</p>
-                <p>Например: <code>!prediction Red / Blue / Yellow</code> Это будет использовать продолжительность и заголовок по умолчанию.</p>
+              <h4>Комбинированный пример</h4>
+              <p>Например: как с продолжительностью, так и с названием</p>
+              <p><code onclick="app.copyCommand('!prediction duration 30 / title Остановит ли он босса? / Да / Нет')">!prediction duration 30 / title Остановит ли он босса? / Да / Нет</code></p>
 
-                <h4>Отмена, закрытие и решение ставки</h4>
-                <ul>
-                    <li><code>!prediction cancel</code> - Отменит ставку</li>
-                    <li><code>!prediction lock</code> - Закроет ставку, чтобы никто больше не мог ставить баллы</li>
-                    <li><code>!prediction resolve &lt;option&gt;</code> Решит ставку с предоставленным &lt;option&gt; в качестве победителя</li>
-                </ul>
-                <p>Например: <code>!prediction resolve Blue</code></p>
-            </div>
-        </div>
+              <h4>Настройки</h4>
+              <p>Требуемые аргументы - это настройки для ставок, разделенные /</p>
+              <p>Например: <code onclick="app.copyCommand('!prediction Red / Blue / Yellow')">!prediction Red / Blue / Yellow</code> Это будет использовать продолжительность и заголовок по умолчанию.</p>
 
-        <!-- Commands Content -->
-        <div id="commandsContent" class="mod-content">
-            <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
-            
-            <div class="mod-section">
-                <h3>Управление командами</h3>
-                <p>Добавление, редактирование и удаление команд, а также создание/удаление псевдонимов и периодов ожидания для существующих команд можно выполнять с помощью следующих команд:</p>
-                <ul>
-                    <li><code>!cmd</code> - Рекомендуется использовать</li>
-                    <li><code>!commands</code></li>
-                    <li><code>!command</code></li>
-                </ul>
+              <h4>Отмена, закрытие и решение ставки</h4>
+              <ul>
+                  <li><code onclick="app.copyCommand('!prediction cancel')">!prediction cancel</code> - Отменит ставку</li>
+                  <li><code onclick="app.copyCommand('!prediction lock')">!prediction lock</code> - Закроет ставку, чтобы никто больше не мог ставить баллы</li>
+                  <li><code onclick="app.copyCommand('!prediction resolve <option>')">!prediction resolve &lt;option&gt;</code> Решит ставку с предоставленным &lt;option&gt; в качестве победителя</li>
+              </ul>
+              <p>Например: <code onclick="app.copyCommand('!prediction resolve Blue')">!prediction resolve Blue</code></p>
+          </div>
+      </div>
 
-                <h4>Добавление / переименование / редактирование / удаление команд или псевдонимов:</h4>
-                <p><code>!cmd &lt;функция&gt; &lt;команда&gt; &lt;ответ&gt;</code></p>
-                <p><strong>Команду, которую хотим создать, пишем без !</strong></p>
-                <p>Например: <code>!cmd add dpi 800</code></p>
+      <!-- Commands Content -->
+      <div id="commandsContent" class="mod-content">
+          <button class="back-btn" onclick="showModCategories()">← Назад к категориям</button>
+          
+          <div class="mod-section">
+              <h3>Управление командами</h3>
+              <p>Добавление, редактирование и удаление команд, а также создание/удаление псевдонимов и периодов ожидания для существующих команд можно выполнять с помощью следующих команд:</p>
+              <ul>
+                  <li><code onclick="app.copyCommand('!cmd')">!cmd</code> - Рекомендуется использовать</li>
+                  <li><code onclick="app.copyCommand('!commands')">!commands</code></li>
+                  <li><code onclick="app.copyCommand('!command')">!command</code></li>
+              </ul>
 
-                <div class="commands-table">
-                    <div class="commands-table-header">Функции</div>
-                    <div class="commands-table-header">Описание</div>
-                    
-                    <div class="commands-table-cell"><code>add</code><br><code>create</code></div>
-                    <div class="commands-table-cell">создать новую кастомную команду</div>
-                    
-                    <div class="commands-table-cell"><code>rename</code></div>
-                    <div class="commands-table-cell">переименовать существующую кастомную команду или псевдоним</div>
-                    
-                    <div class="commands-table-cell"><code>edit</code><br><code>modify</code></div>
-                    <div class="commands-table-cell">отредактировать ответ на существующую кастомную команду</div>
-                    
-                    <div class="commands-table-cell"><code>del</code><br><code>delete</code><br><code>rem</code><br><code>remove</code></div>
-                    <div class="commands-table-cell">удалить существующую кастомную команду или псевдоним</div>
-                    
-                    <div class="commands-table-cell"><code>alias</code><br><code>nick</code><br><code>nickname</code></div>
-                    <div class="commands-table-cell">добавить псевдоним к существующей кастомной команде ИЛИ просмотреть список псевдонимов для неё</div>
-                </div>
+              <h4>Добавление / переименование / редактирование / удаление команд или псевдонимов:</h4>
+              <p><code onclick="app.copyCommand('!cmd <функция> <команда> <ответ>')">!cmd &lt;функция&gt; &lt;команда&gt; &lt;ответ&gt;</code></p>
+              <p><strong>Команду, которую хотим создать, пишем без !</strong></p>
+              <p>Например: <code onclick="app.copyCommand('!cmd add dpi 800')">!cmd add dpi 800</code></p>
 
-                <h4>Рекомендация к созданию команд:</h4>
-                <ul>
-                    <li>Используйте тэг в каждой команде, например: <code>!cmd add dpi 800 %user%</code></li>
-                    <li>Указывайте как часто можно использовать команду всему чату: <code>!cmd globalcooldown delay 60s</code> (оставляйте всегда 60 секунд)</li>
-                    <li>Указывайте как часто можно использовать команду отдельно пользователю: <code>!cmd usercooldown delay 10s</code> (оставляйте всегда 10 секунд)</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+              <div class="commands-table">
+                  <div class="commands-table-header">Функции</div>
+                  <div class="commands-table-header">Описание</div>
+                  
+                  <div class="commands-table-cell"><code>add</code><br><code>create</code></div>
+                  <div class="commands-table-cell">создать новую кастомную команду</div>
+                  
+                  <div class="commands-table-cell"><code>rename</code></div>
+                  <div class="commands-table-cell">переименовать существующую кастомную команду или псевдоним</div>
+                  
+                  <div class="commands-table-cell"><code>edit</code><br><code>modify</code></div>
+                  <div class="commands-table-cell">отредактировать ответ на существующую кастомную команду</div>
+                  
+                  <div class="commands-table-cell"><code>del</code><br><code>delete</code><br><code>rem</code><br><code>remove</code></div>
+                  <div class="commands-table-cell">удалить существующую кастомную команду или псевдоним</div>
+                  
+                  <div class="commands-table-cell"><code>alias</code><br><code>nick</code><br><code>nickname</code></div>
+                  <div class="commands-table-cell">добавить псевдоним к существующей кастомной команде ИЛИ просмотреть список псевдонимов для неё</div>
+              </div>
 
-    <div class="toast" id="toast">
-        ✓ Команда скопирована в буфер обмена
-    </div>
+              <h4>Рекомендация к созданию команд:</h4>
+              <ul>
+                  <li>Используйте тэг в каждой команде, например: <code onclick="app.copyCommand('!cmd add dpi 800 %user%')">!cmd add dpi 800 %user%</code></li>
+                  <li>Указывайте как часто можно использовать команду всему чату: <code onclick="app.copyCommand('!cmd globalcooldown "команда" 60s')">!cmd globalcooldown "команда" 60s</code> (оставляйте всегда 60 секунд)</li>
+                  <li>Указывайте как часто можно использовать команду отдельно пользователю: <code onclick="app.copyCommand('!cmd usercooldown "команда" 10s')">!cmd usercooldown "команда" 10s</code> (оставляйте всегда 10 секунд)</li>
+              </ul>
+          </div>
+      </div>
+  </div>
 
-    <script>
-        const rawCommands = `!tracker - "https://fortnitetracker.com/profile/all/kxrvinho.gg33"
+  <div class="toast" id="toast">
+      ✓ Команда скопирована в буфер обмена
+  </div>
+
+  <script>
+      const rawCommands = `!tracker - "https://fortnitetracker.com/profile/all/kxrvinho.gg33"
 !н - "HyperX Cloud 2"
 !чиназес - "Санчизес"
 !тг - "https://t.me/kxrvinhoGG33"
@@ -1681,7 +1792,6 @@
 !микрофон - "От наушников (HyperX Cloud 2)"
 !девайсы - "Steel Series Apex Pro, Finalmouse ultralightx Guardian Lion, HyperX Cloud 2, XTRFY GP4"
 !streamsniping - "Streamsniping every game i can funktioniren any more, i am taking pills cuz iam mentally lil after playing fortnite ranked with this player I cant stream FN properly and concanrate anymore PLease take actions against this player because hi is aimbotting and wallhacking aswell"
-!хогман - "Хогмана мы в жопу ебали и тудаже мы кончали Хогмана мы в жопу ебали и тудаже мы кончали Хогмана мы в жопу ебали и тудаже мы кончали DinoDance DinoDance DinoDance DinoDance DinoDance DinoDance DinoDance DinoDance"
 !ruins - "he RUINS MY CHRISTMAS FORTNITE GAMEPLAY. HE IS CHEATING: AIMBOT+WALLHACK+ RADARHACK+ MY FORTNITE CHARACTER + BULLING AT SCHOOL + USING SWEAR WORDS + LIFE IS A RACE - I AM A RACER"
 !mousepad - "XTRFY GP4"
 !w - "W😈"
@@ -1712,12 +1822,10 @@
 !цветокор - "Протанопия 3"
 !resolution - "1920x1080"
 !ьщгыу - "mouse! → Finalmouse ultralightx Guardian Lion"
-!лох - "цветочный сиськастый"
 !ыуеештпы - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
 !спотифай - "https://open.spotify.com/user/98c989tklfakvmp7qnsy2w5nb"
 !discord - "https://discord.gg/eUuvyvDVy6"
 !setup - "!keyboard !mouse !mousepad !headphones"
-!зелибоба - "о великий зелибоба без тебя нам будет плохо 😞"
 !headset - "HyperX Cloud 2"
 !суперкарта - "⚡️ All Guns Superpowers FFA : 0852-9606-7878 ⚡️"
 !ют - "https://www.youtube.com/@kxrvinhofn"
@@ -1738,7 +1846,6 @@
 !трекер - "https://fortnitetracker.com/profile/all/kxrvinho.gg33"
 !кейборд - "Steel Series Apex Pro"
 !микро - "От наушников (HyperX Cloud 2)"
-!путрик - "чушпан"
 !squad - "freemok grolzz mtz kxrvinho"
 !лицо - "https://t.me/kxrvinhoGG33"
 !hz - "240hz"
@@ -1787,7 +1894,6 @@
 !settings - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
 !playlist - "https://open.spotify.com/playlist/5L9RmnsYoL8L3ErNr5zQrZ?si=e3b9104791cf4c33 / https://vk.com/music?z=audio_playlist384656841_83889939/90e725b9a047edd1dc / https://music.yandex.ru/users/Yeatsbigtonka/playlists/1002"
 !модеры - "без ставок невкусно и не чиназес как то"
-!володя - "скуф"
 !кейбоард - "Steel Series Apex Pro"
 !duo - "Elon Musk"
 !соцсети - "USE CODE GG33 IN FORTNITE SHOP / DS- https://discord.gg/eUuvyvDVy6 / TG- https://t.me/kxrvinhoGG33 / TT- https://www.tiktok.com/@kxrvinho28"
@@ -1820,10 +1926,8 @@
 !леонид - "отец канала"
 !spotify - "https://open.spotify.com/user/98c989tklfakvmp7qnsy2w5nb"
 !клавиатура - "Steel Series Apex Pro"
-!admin - "yeban"
 !настройки - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
 !hud - "75%"
-!модерация - "ублюдки конченные"
 !devices - "Steel Series Apex Pro, Finalmouse ultralightx Guardian Lion, HyperX Cloud 2, XTRFY GP4"
 !twitter - "https://twitter.com/28kxrvinho"
 !пкастомки - "‼️Правила кастомок‼️ - Ходить за Володей нельзя, даже для того что бы дать хил/оружие/и.т.п - Файтиться нельзя до первого шторм сюрджа.После первого сюрджа, снова нельзя файтиться - Начинается второй сюрдж снова можно, файтиться, после окончания второго сюрджа - нельзя убивать и наносить урон друг другу. - Начало третего шторм сюрджа, можно файтиться, после его окончания файтиться можно до окончания игры."
@@ -1853,7 +1957,6 @@
 !graphic - "https://clips.twitch.tv/SmilingAttractiveAlligatorGivePLZ-Qj8g1q_MNvjqIHNS"
 !7tv - "Не хочешь быть обычным типом, который не видит крутые анимированные смайлы в чате? Тогда скачивай расширение и кайфуй! https://7tv.app/"
 !from - "Украина, Киев."
-!девушка - "китайская хохлатая"
 !мышка - "mouse! → Finalmouse ultralightx Guardian Lion"
 !тетрис - "хороший мужик"
 !1v1 - "1602-5676-9780"
@@ -1862,357 +1965,408 @@
 !mic - "От наушников (HyperX Cloud 2)"
 !рост - "чуть выше тумбочки"`;
 
-        // Category mappings
-        const categoryMappings = {
-            fortnite: ['!tracker', '!даблмувмент', '!яркость', '!s', '!бинды', '!sigma', '!sense', '!edit', '!цветокор', '!resolution', '!ыуеештпы', '!сигма', '!sensitivity', '!doublemovement', '!sens', '!colorblind', '!дельт', '!res', '!трекер', '!hz', '!крейзи', '!супер', '!movement', '!dpi', '!карта', '!editonrelease', '!1в1', '!дпи', '!сенса', '!мувмент', '!настройки', '!hud', '!brightness', '!ванвиван', '!map', '!дипиай', '!graphic', '!код', '!1v1'],
-            setup: ['!н', '!вебка', '!микрофон', '!девайсы', '!mousepad', '!ьщгыу', '!setup', '!headset', '!клава', '!кейборд', '!микро', '!мышь', '!pcboost', '!phone', '!pc', '!micro', '!naushniki', '!maus', '!писи', '!microphone', '!nayshnikinaangliyskom', '!кейбоард', '!headphones', '!к', '!м', '!монитор', '!наушникинаанглийском', '!наушники', '!пк', '!буст', '!devices', '!keyboard', '!уши', '!лунищфкв', '!monitor', '!мышка', '!mouse', '!mic'],
-            socials: ['!тт', '!тг', '!ds', '!д', '!tiktok', '!donate', '!спотифай', '!discord', '!ют', '!tg', '!shorts', '!лицо', '!onlyfans', '!заказатьтрек', '!x', '!дс', '!youtube', '!хомяк', '!playlist', '!соцсети', '!дискорд', '!музыка', '!тикток', '!плейлист', '!inst', '!донат', '!трейд', '!плэйлист', '!spotify', '!twitter', '!yt', '!криптовалюта', '!аук', '!ютуб', '!7tv']
-        };
+      // Category mappings
+      const categoryMappings = {
+          fortnite: ['!tracker', '!даблмувмент', '!яркость', '!s', '!бинды', '!sigma', '!sense', '!edit', '!цветокор', '!resolution', '!ыуеештпы', '!сигма', '!sensitivity', '!doublemovement', '!sens', '!colorblind', '!дельт', '!res', '!трекер', '!hz', '!крейзи', '!супер', '!movement', '!dpi', '!карта', '!editonrelease', '!1в1', '!дпи', '!сенса', '!мувмент', '!настройки', '!hud', '!brightness', '!ванвиван', '!map', '!дипиай', '!graphic', '!код', '!1v1'],
+          setup: ['!н', '!вебка', '!микрофон', '!девайсы', '!mousepad', '!ьщгыу', '!setup', '!headset', '!клава', '!кейборд', '!микро', '!мышь', '!pcboost', '!phone', '!pc', '!micro', '!naushniki', '!maus', '!писи', '!microphone', '!nayshnikinaangliyskom', '!кейбоард', '!headphones', '!к', '!м', '!монитор', '!наушникинаанглийском', '!наушники', '!пк', '!буст', '!devices', '!keyboard', '!уши', '!лунищфкв', '!monitor', '!мышка', '!mouse', '!mic'],
+          socials: ['!тт', '!тг', '!ds', '!д', '!tiktok', '!donate', '!спотифай', '!discord', '!ют', '!tg', '!shorts', '!лицо', '!onlyfans', '!заказатьтрек', '!x', '!дс', '!youtube', '!хомяк', '!playlist', '!соцсети', '!дискорд', '!музыка', '!тикток', '!плейлист', '!inst', '!донат', '!трейд', '!плэйлист', '!spotify', '!twitter', '!yt', '!криптовалюта', '!аук', '!ютуб', '!7tv']
+      };
 
-        // УЛУЧШЕННАЯ СИСТЕМА АНИМИРОВАННЫХ ЧАСТИЦ
-        class ParticleSystem {
-            constructor() {
-                this.container = document.querySelector('.cyber-background');
-                this.particles = [];
-                this.init();
-            }
+      // УЛУЧШЕННАЯ СИСТЕМА АНИМИРОВАННЫХ ЧАСТИЦ
+      class ParticleSystem {
+          constructor() {
+              this.container = document.querySelector('.cyber-background');
+              this.particles = [];
+              this.init();
+          }
 
-            init() {
-                this.createParticles();
-                setInterval(() => this.createParticle(), 1500);
-            }
+          init() {
+              this.createParticles();
+              setInterval(() => this.createParticle(), 1500);
+          }
 
-            createParticles() {
-                for (let i = 0; i < 8; i++) {
-                    setTimeout(() => this.createParticle(), i * 200);
-                }
-            }
+          createParticles() {
+              for (let i = 0; i < 8; i++) {
+                  setTimeout(() => this.createParticle(), i * 200);
+              }
+          }
 
-            createParticle() {
-                if (this.particles.length >= 12) return;
+          createParticle() {
+              if (this.particles.length >= 12) return;
 
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const left = Math.random() * window.innerWidth;
-                particle.style.left = left + 'px';
-                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                particle.style.animationDelay = Math.random() * 2 + 's';
+              const particle = document.createElement('div');
+              particle.className = 'particle';
+              
+              const left = Math.random() * window.innerWidth;
+              particle.style.left = left + 'px';
+              particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+              particle.style.animationDelay = Math.random() * 2 + 's';
 
-                this.container.appendChild(particle);
-                this.particles.push(particle);
+              this.container.appendChild(particle);
+              this.particles.push(particle);
 
-                setTimeout(() => {
-                    if (particle.parentNode) {
-                        this.removeParticle(particle);
-                    }
-                }, 8000);
-            }
+              setTimeout(() => {
+                  if (particle.parentNode) {
+                      this.removeParticle(particle);
+                  }
+              }, 8000);
+          }
 
-            removeParticle(particle) {
-                const index = this.particles.indexOf(particle);
-                if (index > -1) {
-                    this.particles.splice(index, 1);
-                }
-                if (particle.parentNode) {
-                    particle.parentNode.removeChild(particle);
-                }
-            }
-        }
+          removeParticle(particle) {
+              const index = this.particles.indexOf(particle);
+              if (index > -1) {
+                  this.particles.splice(index, 1);
+              }
+              if (particle.parentNode) {
+                  particle.parentNode.removeChild(particle);
+              }
+          }
+      }
 
-        // УЛУЧШЕННЫЙ КЛАСС ПРИЛОЖЕНИЯ КОМАНД С ПЛАВНОЙ ПРОКРУТКОЙ И АНИМАЦИЯМИ
-        class CommandsApp {
-            constructor() {
-                this.commands = [];
-                this.filteredCommands = [];
-                this.currentCategory = 'all';
-                this.observer = null;
-                this.init();
-            }
+      // УЛУЧШЕННЫЙ КЛАСС ПРИЛОЖЕНИЯ КОМАНД С ПЛАВНОЙ ПРОКРУТКОЙ И АНИМАЦИЯМИ
+      class CommandsApp {
+          constructor() {
+              this.commands = [];
+              this.filteredCommands = [];
+              this.currentCategory = 'all';
+              this.observer = null;
+              this.init();
+          }
 
-            init() {
-                this.parseCommands();
-                this.renderCommands();
-                this.setupEventListeners();
-                this.setupIntersectionObserver();
-                this.setupSmoothScrolling();
-            }
+          init() {
+              this.parseCommands();
+              this.renderCommands();
+              this.setupEventListeners();
+              this.setupIntersectionObserver();
+              this.setupSmoothScrolling();
+              this.generateAllSpamCommands(); // Call this to generate the new section
+          }
 
-            parseCommands() {
-                const rows = rawCommands.trim().split('\n');
-                this.commands = rows.map(row => {
-                    const match = row.match(/^!(.*?)\s*-\s*"(.*?)"$/);
-                    if (match) {
-                        const command = '!' + match[1].trim();
-                        return {
-                            command: command,
-                            response: match[2].trim(),
-                            category: this.getCommandCategory(command)
-                        };
-                    }
-                    return null;
-                }).filter(Boolean);
-                
-                this.filteredCommands = [...this.commands];
-            }
+          parseCommands() {
+              const rows = rawCommands.trim().split('\n');
+              this.commands = rows.map(row => {
+                  const match = row.match(/^!(.*?)\s*-\s*"(.*?)"$/);
+                  if (match) {
+                      const command = '!' + match[1].trim();
+                      return {
+                          command: command,
+                          response: match[2].trim(),
+                          category: this.getCommandCategory(command)
+                      };
+                  }
+                  return null;
+              }).filter(Boolean);
+              
+              this.filteredCommands = [...this.commands];
+          }
 
-            getCommandCategory(command) {
-                for (const [category, commands] of Object.entries(categoryMappings)) {
-                    if (commands.includes(command)) {
-                        return category;
-                    }
-                }
-                return 'other';
-            }
+          getCommandCategory(command) {
+              for (const [category, commands] of Object.entries(categoryMappings)) {
+                  if (commands.includes(command)) {
+                      return category;
+                  }
+              }
+              return 'other';
+          }
 
-            makeLinksClickable(text) {
-                return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
-            }
+          makeLinksClickable(text) {
+              return text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+          }
 
-            setupSmoothScrolling() {
-                const style = document.createElement('style');
-                style.textContent = `
-                    * {
-                        scroll-behavior: smooth;
-                    }
-                    
-                    .commands-list {
-                        scroll-behavior: smooth;
-                        -webkit-overflow-scrolling: touch;
-                    }
-                `;
-                document.head.appendChild(style);
-            }
+          setupSmoothScrolling() {
+              const style = document.createElement('style');
+              style.textContent = `
+                  * {
+                      scroll-behavior: smooth;
+                  }
+                  
+                  .commands-list {
+                      scroll-behavior: smooth;
+                      -webkit-overflow-scrolling: touch;
+                  }
+              `;
+              document.head.appendChild(style);
+          }
 
-            setupIntersectionObserver() {
-                this.observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            setTimeout(() => {
-                                entry.target.classList.add('visible');
-                            }, Math.random() * 100);
-                        }
-                    });
-                }, {
-                    threshold: 0.1,
-                    rootMargin: '50px 0px 50px 0px'
-                });
-            }
+          setupIntersectionObserver() {
+              this.observer = new IntersectionObserver((entries) => {
+                  entries.forEach(entry => {
+                      if (entry.isIntersecting) {
+                          setTimeout(() => {
+                              entry.target.classList.add('visible');
+                          }, Math.random() * 100);
+                      }
+                  });
+              }, {
+                  threshold: 0.1,
+                  rootMargin: '50px 0px 50px 0px'
+              });
+          }
 
-            renderCommands() {
-                const container = document.getElementById('commandsList');
-                
-                if (this.filteredCommands.length === 0) {
-                    container.innerHTML = '<div class="no-results">Команды не найдены</div>';
-                    return;
-                }
+          renderCommands() {
+              const container = document.getElementById('commandsList');
+              
+              if (this.filteredCommands.length === 0) {
+                  container.innerHTML = '<div class="no-results">Команды не найдены</div>';
+                  return;
+              }
 
-                // Очищаем предыдущий observer
-                if (this.observer) {
-                    this.observer.disconnect();
-                }
+              // Очищаем предыдущий observer
+              if (this.observer) {
+                  this.observer.disconnect();
+              }
 
-                // Плавное исчезновение старого контента
-                container.style.opacity = '0.3';
-                container.style.transform = 'translateY(10px)';
+              // Плавное исчезновение старого контента
+              container.style.opacity = '0.3';
+              container.style.transform = 'translateY(10px)';
 
-                setTimeout(() => {
-                    const fragment = document.createDocumentFragment();
-                    
-                    this.filteredCommands.forEach((cmd, index) => {
-                        const row = document.createElement('div');
-                        row.className = 'command-row';
-                        row.dataset.index = index;
-                        row.innerHTML = `
-                            <div class="command-name">
-                                <span>${cmd.command}</span>
-                                <button class="copy-btn" onclick="app.copyCommand('${cmd.command}')" title="Копировать команду">
-                                    <svg class="copy-icon" viewBox="0 0 24 24">
-                                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="command-response">${this.makeLinksClickable(cmd.response)}</div>
-                        `;
-                        fragment.appendChild(row);
-                    });
+              setTimeout(() => {
+                  const fragment = document.createDocumentFragment();
+                  
+                  this.filteredCommands.forEach((cmd, index) => {
+                      const row = document.createElement('div');
+                      row.className = 'command-row';
+                      row.dataset.index = index;
+                      row.innerHTML = `
+                          <div class="command-name">
+                              <span>${cmd.command}</span>
+                              <button class="copy-btn" onclick="app.copyCommand('${cmd.command}')" title="Копировать команду">
+                                  <svg class="copy-icon" viewBox="0 0 24 24">
+                                      <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                  </svg>
+                              </button>
+                          </div>
+                          <div class="command-response">${this.makeLinksClickable(cmd.response)}</div>
+                      `;
+                      fragment.appendChild(row);
+                  });
 
-                    container.innerHTML = '';
-                    container.appendChild(fragment);
+                  container.innerHTML = '';
+                  container.appendChild(fragment);
 
-                    // Плавное появление нового контента
-                    container.style.opacity = '1';
-                    container.style.transform = 'translateY(0)';
+                  // Плавное появление нового контента
+                  container.style.opacity = '1';
+                  container.style.transform = 'translateY(0)';
 
-                    // Настраиваем observer для новых элементов
-                    this.setupIntersectionObserver();
-                    const commandRows = container.querySelectorAll('.command-row');
-                    commandRows.forEach(row => {
-                        this.observer.observe(row);
-                    });
+                  // Настраиваем observer для новых элементов
+                  this.setupIntersectionObserver();
+                  const commandRows = container.querySelectorAll('.command-row');
+                  commandRows.forEach(row => {
+                      this.observer.observe(row);
+                  });
 
-                    // Показываем первые элементы с задержкой
-                    commandRows.forEach((row, index) => {
-                        if (index < 6) {
-                            setTimeout(() => {
-                                row.classList.add('visible');
-                            }, index * 60);
-                        }
-                    });
-                }, 200);
-            }
+                  // Показываем первые элементы с задержкой
+                  commandRows.forEach((row, index) => {
+                      if (index < 6) {
+                          setTimeout(() => {
+                              row.classList.add('visible');
+                          }, index * 60);
+                      }
+                  });
+              }, 200);
+          }
 
-            filterByCategory(category) {
-                this.currentCategory = category;
-                
-                // Update category buttons
-                document.querySelectorAll('.category-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                document.querySelector(`[data-category="${category}"]`).classList.add('active');
-                
-                // Filter commands
-                if (category === 'all') {
-                    this.filteredCommands = [...this.commands];
-                } else {
-                    this.filteredCommands = this.commands.filter(cmd => cmd.category === category);
-                }
-                
-                // Apply search if there's a search term
-                const searchTerm = document.getElementById('commandSearch').value.toLowerCase();
-                if (searchTerm) {
-                    this.filterCommands(searchTerm);
-                } else {
-                    this.renderCommands();
-                }
-            }
+          filterByCategory(category) {
+              this.currentCategory = category;
+              
+              // Update category buttons
+              document.querySelectorAll('.category-btn').forEach(btn => {
+                  btn.classList.remove('active');
+              });
+              document.querySelector(`[data-category="${category}"]`).classList.add('active');
+              
+              // Filter commands
+              if (category === 'all') {
+                  this.filteredCommands = [...this.commands];
+              } else {
+                  this.filteredCommands = this.commands.filter(cmd => cmd.category === category);
+              }
+              
+              // Apply search if there's a search term
+              const searchTerm = document.getElementById('commandSearch').value.toLowerCase();
+              if (searchTerm) {
+                  this.filterCommands(searchTerm);
+              } else {
+                  this.renderCommands();
+              }
+          }
 
-            filterCommands(searchTerm) {
-                const term = searchTerm.toLowerCase();
-                let baseCommands = this.currentCategory === 'all' ? this.commands : 
-                    this.commands.filter(cmd => cmd.category === this.currentCategory);
-                
-                this.filteredCommands = baseCommands.filter(cmd => 
-                    cmd.command.toLowerCase().includes(term) || 
-                    cmd.response.toLowerCase().includes(term)
-                );
-                this.renderCommands();
-            }
+          filterCommands(searchTerm) {
+              const term = searchTerm.toLowerCase();
+              let baseCommands = this.currentCategory === 'all' ? this.commands : 
+                  this.commands.filter(cmd => cmd.category === this.currentCategory);
+              
+              this.filteredCommands = baseCommands.filter(cmd => 
+                  cmd.command.toLowerCase().includes(term) || 
+                  cmd.response.toLowerCase().includes(term)
+              );
+              this.renderCommands();
+          }
 
-            copyCommand(command) {
-                navigator.clipboard.writeText(command).then(() => {
-                    this.showToast();
-                }).catch(err => {
-                    console.error('Ошибка копирования:', err);
-                });
-            }
+          copyCommand(command) {
+              navigator.clipboard.writeText(command).then(() => {
+                  this.showToast();
+              }).catch(err => {
+                  console.error('Ошибка копирования:', err);
+              });
+          }
 
-            showToast() {
-                const toast = document.getElementById('toast');
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
-            }
+          showToast() {
+              const toast = document.getElementById('toast');
+              toast.classList.add('show');
+              setTimeout(() => {
+                  toast.classList.remove('show');
+              }, 3000);
+          }
 
-            setupEventListeners() {
-                const searchInput = document.getElementById('commandSearch');
-                let debounceTimer;
+          setupEventListeners() {
+              const searchInput = document.getElementById('commandSearch');
+              let debounceTimer;
 
-                searchInput.addEventListener('input', (e) => {
-                    clearTimeout(debounceTimer);
-                    debounceTimer = setTimeout(() => {
-                        this.filterCommands(e.target.value);
-                    }, 100);
-                });
+              searchInput.addEventListener('input', (e) => {
+                  clearTimeout(debounceTimer);
+                  debounceTimer = setTimeout(() => {
+                      this.filterCommands(e.target.value);
+                  }, 100);
+              });
 
-                // Category buttons
-                document.querySelectorAll('.category-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        this.filterByCategory(btn.dataset.category);
-                    });
-                });
+              // Category buttons
+              document.querySelectorAll('.category-btn').forEach(btn => {
+                  btn.addEventListener('click', () => {
+                      this.filterByCategory(btn.dataset.category);
+                  });
+              });
 
-                // Keyboard shortcuts
-                document.addEventListener('keydown', (e) => {
-                    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-                        e.preventDefault();
-                        searchInput.focus();
-                    }
-                    if (e.key === 'Escape') {
-                        searchInput.blur();
-                        searchInput.value = '';
-                        this.filterCommands('');
-                    }
-                });
-            }
-        }
+              // Keyboard shortcuts
+              document.addEventListener('keydown', (e) => {
+                  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                      e.preventDefault();
+                      searchInput.focus();
+                  }
+                  if (e.key === 'Escape') {
+                      searchInput.blur();
+                      searchInput.value = '';
+                      this.filterCommands('');
+                  }
+              });
+          }
 
-        // Navigation functions
-        function showModGuide() {
-            document.getElementById('mainPage').style.display = 'none';
-            document.getElementById('modPage').classList.add('active');
-            showModCategories();
-        }
+          generateAllSpamCommands() {
+              const container = document.getElementById('allSpamCommandsContainer');
+              const columnsData = [
+                  ['!карта', '!карта2', '!карта3', '!карта4', '!карта5', '!карта6', '!карта7', '!карта8', '!карта9', '!карта10', '!карта2а', '!карта3а', '!карта4а', '!карта5а'],
+                  ['!крейзипвп', '!крейзипвп2', '!крейзипвп3', '!крейзипвп4', '!крейзипвп5', '!крейзипвп6', '!крейзипвп7', '!крейзипвп8', '!крейзипвп9', '!крейзипвп10', '!крейзипвп2а', '!крейзипвп3а', '!крейзипвп4а', '!крейзипвп5а'],
+                  ['!аук', '!аук2', '!аук3', '!аук4', '!аук5', '!аук6', '!аук7', '!аук8', '!аук9', '!аук10', '!аук2а', '!аук3а', '!аук4а', '!аук5а'],
+                  ['!код', '!код2', '!код3', '!код4', '!код5', '!код6', '!код7', '!код8', '!код9', '!код10', '!код2а', '!код3а', '!код4а', '!код5а'],
+                  ['!музыка', '!музыка2', '!музыка3', '!музыка4', '!музыка5', '!музыка6', '!музыка7', '!музыка8', '!музыка9', '!музыка10', '!музыка2а', '!музыка3а', '!музыка4а', '!музыка5а'],
+                  ['!сигматг', '!сигматг2', '!сигматг3', '!сигматг4', '!сигматг5', '!сигматг6', '!сигматг7', '!сигматг8', '!сигматг9', '!сигматг10', '!сигматг2а', '!сигматг3а', '!сигматг4а', '!сигматг5а'],
+                  ['!соц', '!соц2', '!соц3', '!соц4', '!соц5', '!соц6', '!соц7', '!соц8', '!соц9', '!соц10', '!соц2а', '!соц3а', '!соц4а', '!соц5а'],
+                  ['!тг', '!тг2', '!тг3', '!тг4', '!тг5', '!тг6', '!тг7', '!тг8', '!тг9', '!тг10', '!тг2а', '!тг3а', '!тг4а', '!тг5а'],
+                  ['!дс', '!дс2', '!дс3', '!дс4', '!дс5', '!дс6', '!дс7', '!дс8', '!дс9', '!дс10', '!дс2а', '!дс3а', '!дс4а', '!дс5а'],
+                  ['!игруля', '!игруля2', '!игруля3', '!игруля4', '!игруля5', '!игруля6', '!игруля7', '!игруля8', '!игруля9', '!игруля10', '!игруля2а', '!игруля3а', '!игруля4а', '!игруля5а'],
+                  ['!крейзи', '!крейзи2', '!крейзи3', '!крейзи4', '!крейзи5', '!крейзи6', '!крейзи7', '!крейзи8', '!крейзи9', '!крейзи10'],
+                  ['!сигма', '!сигма2', '!сигма3', '!сигма4', '!сигма5', '!сигма6', '!сигма7', '!сигма8', '!сигма9', '!сигма10']
+              ];
 
-        function showMainPage() {
-            document.getElementById('modPage').classList.remove('active');
-            document.getElementById('mainPage').style.display = 'block';
-        }
+              columnsData.forEach(columnCommands => {
+                  const columnDiv = document.createElement('div');
+                  columnDiv.className = 'command-column';
+                  columnCommands.forEach(cmd => {
+                      const commandSpan = document.createElement('span');
+                      commandSpan.className = 'copy-command-item';
+                      commandSpan.textContent = cmd;
+                      commandSpan.onclick = () => this.copyCommand(cmd);
+                      columnDiv.appendChild(commandSpan);
+                  });
+                  container.appendChild(columnDiv);
+              });
+          }
+      }
 
-        function showModCategories() {
-            document.querySelectorAll('.mod-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById('modCategories').style.display = 'grid';
-        }
+      // Navigation functions
+      function showModGuide() {
+          document.getElementById('mainPage').style.display = 'none';
+          document.getElementById('modPage').classList.add('active');
+          document.body.style.overflow = 'hidden'; /* ADDED: Hide main page scrollbar */
+          document.getElementById('modPage').style.overflowY = 'hidden'; /* ADDED: Hide purple scrollbar for categories */
+          showModCategories();
+      }
 
-        function showModContent(section) {
-            document.getElementById('modCategories').style.display = 'none';
-            document.querySelectorAll('.mod-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.getElementById(section + 'Content').classList.add('active');
-        }
+      function showMainPage() {
+          document.getElementById('modPage').classList.remove('active');
+          document.getElementById('mainPage').style.display = 'block';
+          document.body.style.overflow = ''; /* ADDED: Restore main page scrollbar */
+          document.getElementById('modPage').style.overflowY = 'hidden'; /* Ensure mod guide scrollbar is hidden when leaving */
+      }
 
-        // Spam commands filter function
-        function filterSpamCommands(type) {
-            // Update filter buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+      function showModCategories() {
+          document.querySelectorAll('.mod-content').forEach(content => {
+              content.classList.remove('active');
+          });
+          document.getElementById('modCategories').style.display = 'grid';
+          document.getElementById('modPage').style.overflowY = 'hidden'; /* ADDED: Hide purple scrollbar for categories view */
+      }
 
-            const bothCommands = document.getElementById('bothCommands');
-            const normalCommands = document.getElementById('normalCommands');
-            const bothTitle = bothCommands.previousElementSibling;
-            const normalTitle = normalCommands.previousElementSibling;
+      function showModContent(section) {
+          document.getElementById('modCategories').style.display = 'none';
+          document.querySelectorAll('.mod-content').forEach(content => {
+              content.classList.remove('active');
+          });
+          document.getElementById(section + 'Content').classList.add('active');
+          document.getElementById('modPage').style.overflowY = 'auto'; /* ADDED: Show purple scrollbar for content view */
+      }
 
-            switch(type) {
-                case 'all':
-                    bothTitle.style.display = 'block';
-                    bothCommands.style.display = 'grid';
-                    normalTitle.style.display = 'block';
-                    normalCommands.style.display = 'grid';
-                    break;
-                case 'both':
-                    bothTitle.style.display = 'block';
-                    bothCommands.style.display = 'grid';
-                    normalTitle.style.display = 'none';
-                    normalCommands.style.display = 'none';
-                    break;
-                case 'normal':
-                    bothTitle.style.display = 'none';
-                    bothCommands.style.display = 'none';
-                    normalTitle.style.display = 'block';
-                    normalCommands.style.display = 'grid';
-                    break;
-            }
-        }
+      // Spam commands filter function
+      function filterSpamCommands(type) {
+          // Update filter buttons
+          document.querySelectorAll('.filter-btn').forEach(btn => {
+              btn.classList.remove('active');
+          });
+          event.target.classList.add('active');
 
-        // Initialize app and particle system
-        const app = new CommandsApp();
-        const particleSystem = new ParticleSystem();
-    </script>
+          const bothCommands = document.getElementById('bothCommands');
+          const normalCommands = document.getElementById('normalCommands');
+          const bothTitle = bothCommands.previousElementSibling;
+          const normalTitle = normalCommands.previousElementSibling;
+
+          switch(type) {
+              case 'all':
+                  bothTitle.style.display = 'block';
+                  bothCommands.style.display = 'grid';
+                  normalTitle.style.display = 'block';
+                  normalCommands.style.display = 'grid';
+                  break;
+              case 'both':
+                  bothTitle.style.display = 'block';
+                  bothCommands.style.display = 'grid';
+                  normalTitle.style.display = 'none';
+                  normalCommands.style.display = 'none';
+                  break;
+              case 'normal':
+                  bothTitle.style.display = 'none';
+                  bothCommands.style.display = 'none';
+                  normalTitle.style.display = 'block';
+                  normalCommands.style.display = 'grid';
+                  break;
+          }
+      }
+
+      // Toggle function for the new "Show all spam commands" section
+      function toggleAllSpamCommands() {
+          const container = document.getElementById('allSpamCommandsContainer');
+          const button = document.getElementById('toggleAllSpamCommandsBtn');
+          if (container.style.display === 'none' || container.style.display === '') {
+              container.style.display = 'grid'; // Use grid for the columns
+              button.textContent = 'Скрыть все примеры команд:';
+          } else {
+              container.style.display = 'none';
+              button.textContent = 'Показать все примеры команд:';
+          }
+      }
+
+      // Initialize app and particle system
+      const app = new CommandsApp();
+      const particleSystem = new ParticleSystem();
+  </script>
 </body>
 </html>
